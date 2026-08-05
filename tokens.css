@@ -1,0 +1,61 @@
+:root {
+  --act-canvas: oklch(96% 0.008 78);
+  --act-paper: oklch(99% 0.006 78);
+  --act-paper-warm: oklch(94% 0.021 76);
+  --act-ink: oklch(16% 0.012 68);
+  --act-ink-raised: oklch(22% 0.016 66);
+  --act-ink-soft: oklch(32% 0.016 64);
+  --act-rule: oklch(75% 0.018 70);
+  --act-rule-dark: oklch(39% 0.025 68);
+  --act-muted: oklch(50% 0.02 68);
+  --act-amber: oklch(78% 0.17 78);
+  --act-gold: oklch(69% 0.15 70);
+  --act-orange: oklch(66% 0.21 46);
+  --act-orange-deep: oklch(57% 0.2 43);
+  --act-orange-ink: oklch(98% 0.006 76);
+  --act-focus: oklch(76% 0.19 69);
+  --act-success: oklch(67% 0.16 145);
+  --act-danger: oklch(55% 0.15 28);
+  --act-overlay: oklch(14% 0.012 68 / 0.88);
+  --act-overlay-soft: oklch(14% 0.012 68 / 0.58);
+  --act-shadow: oklch(12% 0.01 68 / 0.22);
+  --act-transparent: transparent;
+
+  --font-display: "Bricolage Grotesque", "Noto Sans JP", sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-meta: "IBM Plex Mono", "Noto Sans JP", monospace;
+
+  --act-text-2xs: 0.625rem;
+  --act-text-xs: 0.75rem;
+  --act-text-sm: 0.875rem;
+  --act-text-base: 1rem;
+  --act-text-md: 1.25rem;
+  --act-text-lg: 1.563rem;
+  --act-text-xl: 1.953rem;
+  --act-text-2xl: 2.441rem;
+  --act-text-3xl: 3.052rem;
+
+  --act-space-3xs: 0.125rem;
+  --act-space-2xs: 0.25rem;
+  --act-space-xs: 0.5rem;
+  --act-space-sm: 0.75rem;
+  --act-space-md: 1rem;
+  --act-space-lg: 1.5rem;
+  --act-space-xl: 2.5rem;
+  --act-space-2xl: 4rem;
+  --act-space-3xl: 6rem;
+
+  --act-radius-sm: 0.4rem;
+  --act-radius-md: 0.7rem;
+  --act-radius-lg: 1rem;
+  --act-radius-pill: 999px;
+  --act-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --act-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --act-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --act-dur-micro: 120ms;
+  --act-dur-short: 220ms;
+  --act-dur-long: 420ms;
+  --act-z-base: 1;
+  --act-z-raised: 10;
+  --act-z-sticky: 200;
+}

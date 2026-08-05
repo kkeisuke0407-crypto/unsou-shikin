@@ -5,17 +5,25 @@
 - 案件: アクト・ウィル株式会社 / A8.net
 - 遷移先: https://actwill.co.jp/lp5/unsou/a8/
 - 調査日: 2026-08-05
-- 状態: **記事LP未公開・広告未出稿。** 実装・入稿前の資料段階
+- 状態: **記事LP実装済み・GitHub Pages公開設定中。** 広告は未出稿
 
 ---
 
 ## ディレクトリ
 
 ```
+src/                Astro実装
+public/             LP画像・独自ドメイン設定
 docs/
 ├── lp-research/    記事LPの調査・ファクトチェック・構成・完成原稿
 └── ppc-launch/     PPC初期キーワード選定・除外・広告文案
 ```
+
+## 公開用LP
+
+- 独自ドメイン: `https://unsou-shikin.hakobu-family.com`
+- 実装ページ: `src/pages/index.astro`
+- GitHub Pagesの配信設定: `.github/workflows/deploy.yml`
 
 ---
 

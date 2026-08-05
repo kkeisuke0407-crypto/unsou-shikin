@@ -1,0 +1,320 @@
+---
+import "../../tokens.css";
+import "../styles/actwill-unsou.css";
+
+const pains = [
+  { icon: "fuel", title: "燃料費の高騰で\n資金繰りが厳しい" },
+  { icon: "calendar", title: "入金サイクルが長く\n運転資金が不足" },
+  { icon: "wrench", title: "車両の修理・買替で\n急な出費が必要" },
+  { icon: "chart", title: "売上はあるのに\n資金繰りが難しい" },
+];
+
+const diagnosis = [
+  { number: "Q1", question: "法人ですか？", note: "対象：法人" },
+  { number: "Q2", question: "必要な資金は\n300万円以上ですか？", note: "300万円〜" },
+  { number: "Q3", question: "売上はあるが\n資金繰りにお困りですか？", note: "事業資金" },
+];
+
+const cashflow = [
+  { icon: "truck", title: "先行する現金支出", text: "燃料・修繕・税金など" },
+  { icon: "chart", title: "売上が発生", text: "運行していても入金は後日" },
+  { icon: "calendar", title: "入金まで長い", text: "目安：30日〜60日" },
+  { icon: "alert", title: "資金がショート", text: "支払い時期が先に来る" },
+];
+
+const methods = [
+  { title: "ビジネスローン", lead: "おすすめ", icon: "hand", feature: ["最短即日で資金化", "担保・保証人不要", "使途自由で柔軟"], highlight: true, fit: "スピード重視の方に最適" },
+  { title: "不動産担保ローン", lead: "担保を活用", icon: "home", feature: ["高額融資が可能", "金利が低め"], fit: "時間に余裕がある方向け" },
+  { title: "ファクタリング", lead: "売掛債権を活用", icon: "document", feature: ["売掛金を早期資金化", "負債にならない"], fit: "売掛金がある方向け" },
+  { title: "リースバック", lead: "車両を活用", icon: "truck", feature: ["車両を売却し資金化", "車両はそのまま利用可"], fit: "車両を保有する方向け" },
+];
+
+const flow = [
+  { step: "STEP 1", icon: "document", title: "お申し込み", text: "（WEB）" },
+  { step: "STEP 2", icon: "edit", title: "必要書類の提出", text: "（最短即日）" },
+  { step: "STEP 3", icon: "search", title: "審査・ご回答", text: "（最短60分）" },
+  { step: "STEP 4", icon: "handshake", title: "ご契約", text: "（最短翌日）" },
+  { step: "STEP 5", icon: "bank", title: "ご融資", text: "（最短翌日）" },
+];
+
+const documents = ["本人確認書類", "決算書・試算表", "売上が分かる書類", "代表者の銀行口座情報"];
+
+const preparation = [
+  { icon: "calculator", title: "必要な資金額を\n明確にする" },
+  { icon: "calendar", title: "いつまでに\n必要か決める" },
+  { icon: "document", title: "返済計画の\n目安を立てる" },
+  { icon: "clipboard", title: "提出書類を\n事前に準備する" },
+  { icon: "person", title: "資金の使い道を\n整理しておく" },
+];
+
+const faqs = [
+  ["審査にかかる時間はどのくらいですか？", "最短60分での審査対応を掲げています。お申し込み内容や混雑状況によって異なるため、まずは条件をご確認ください。"],
+  ["赤字や債務超過でも利用できますか？", "状況によりご相談いただけます。可否を断定できないため、事業状況を添えてお問い合わせください。"],
+  ["担保や保証人は必要ですか？", "第三者保証人・不動産担保は原則不要です。ただし審査の結果、代表者保証などの条件が付く場合があります。"],
+  ["他社借入があっても大丈夫ですか？", "複数借入の見直しを含めてご相談いただけます。審査結果によりご希望に添えない場合があります。"],
+  ["使い道に制限はありますか？", "運転資金、車両関連費、設備投資など、法人の事業資金としてご相談ください。"],
+  ["申し込みはどこから行えますか？", "ページ内の「無料相談で条件を確認する」からご相談いただけます。実際のお申し込み前に対象・条件をご確認ください。"],
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="運送業向けの事業資金ビジネスローン。最短60分審査・即日融資対応、300万円から最大1億円までご相談いただけます。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <title>運送業の資金調達ならアクト・ウィル株式会社</title>
+  </head>
+  <body>
+    <svg class="svg-sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-fuel" viewBox="0 0 48 48"><path d="M14 6h18v36H14zM18 11h10v11H18zM32 16h5l5 6v15a5 5 0 0 1-10 0V28"/><path d="M18 37h10"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 48 48"><rect x="7" y="10" width="34" height="31" rx="2"/><path d="M7 19h34M16 5v10M32 5v10M16 27h5M27 27h5M16 34h5M27 34h5"/></symbol>
+      <symbol id="i-wrench" viewBox="0 0 48 48"><path d="m29 7 7 7-7 7-5-2-12 12a5 5 0 1 1-7-7l12-12-2-5 7-7 1 8zM9 38l1 1"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 48 48"><path d="M7 7v34h34"/><path d="m12 31 9-9 7 5 11-14M34 13h5v5"/></symbol>
+      <symbol id="i-truck" viewBox="0 0 48 48"><path d="M4 12h25v23H4zM29 20h9l6 7v8H29z"/><circle cx="13" cy="37" r="4"/><circle cx="36" cy="37" r="4"/><path d="M32 20v8h12M4 28h25"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 48 48"><path d="M24 5 44 41H4z"/><path d="M24 17v11M24 35v1"/></symbol>
+      <symbol id="i-hand" viewBox="0 0 48 48"><path d="M8 26h7l4-5v-8a3 3 0 0 1 6 0v7l4-5a3 3 0 0 1 5 4l-5 7 5-3a3 3 0 0 1 4 5l-8 7c-3 3-7 5-12 5H8z"/><path d="M8 26v14"/></symbol>
+      <symbol id="i-home" viewBox="0 0 48 48"><path d="m5 24 19-17 19 17"/><path d="M10 21v20h28V21M19 41V29h10v12"/></symbol>
+      <symbol id="i-document" viewBox="0 0 48 48"><path d="M12 5h18l8 8v30H12z"/><path d="M30 5v9h8M18 23h14M18 30h14M18 37h9"/></symbol>
+      <symbol id="i-edit" viewBox="0 0 48 48"><path d="m12 36-2 7 7-2L39 19l-5-5zM30 10l5 5M8 8h19v7H8z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 48 48"><circle cx="21" cy="21" r="12"/><path d="m30 30 11 11"/></symbol>
+      <symbol id="i-handshake" viewBox="0 0 48 48"><path d="m5 17 9-7 9 6 6-4 14 9-8 11-8-5-4 4-9-6-5 2z"/><path d="m18 22 6 5M14 25l7 6M29 21l-6 6"/></symbol>
+      <symbol id="i-bank" viewBox="0 0 48 48"><path d="m4 17 20-11 20 11zM8 21h32M10 40h28M13 21v16M22 21v16M31 21v16"/></symbol>
+      <symbol id="i-calculator" viewBox="0 0 48 48"><rect x="10" y="5" width="28" height="38" rx="2"/><path d="M16 11h16v8H16zM17 26h3M28 26h3M17 34h3M28 34h3"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 48 48"><rect x="10" y="8" width="28" height="35" rx="2"/><path d="M18 8v-3h12v3M17 20h14M17 28h14M17 36h9"/></symbol>
+      <symbol id="i-person" viewBox="0 0 48 48"><circle cx="24" cy="15" r="8"/><path d="M8 42c1-10 7-15 16-15s15 5 16 15"/></symbol>
+    </svg>
+
+    <div class="site-shell">
+      <header class="topbar" aria-label="広告表示">
+        <p>PR：アクト・ウィル株式会社のプロモーションを含みます</p>
+        <span>法人・個人事業主向け</span>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero__photo" aria-hidden="true"></div>
+          <div class="hero__shade" aria-hidden="true"></div>
+          <div class="hero__content">
+            <div class="pain-panel">
+              <p class="pain-panel__lead"><svg aria-hidden="true"><use href="#i-alert" /></svg>こんなお悩み、ありませんか？</p>
+              <div class="pain-grid">
+                {pains.map(({ icon, title }) => (
+                  <article class="pain-card">
+                    <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
+                    <p>{title.split("\n").map((line) => <>{line}<br /></>)}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div class="hero__copy">
+              <p class="hero__kicker">最短で資金化し、<br />事業を止めない。</p>
+              <h1 id="hero-title">運送業の資金調達は<br /><strong>スピードが命</strong></h1>
+              <p class="hero__sub">法人向けビジネスローンで<br />キャッシュフローを安定化</p>
+              <div class="chips" aria-label="サービスの特徴">
+                <span>法人向け</span><span>全国対応</span><span>来店不要</span>
+              </div>
+              <aside class="campaign-callout" aria-label="期間限定キャンペーン">
+                <p><span>運送業限定</span>最短即日契約可能</p>
+                <strong>新規貸付キャンペーン実施中！</strong>
+                <small>売掛債権担保融資をご希望の方は最大30日間利息無料</small>
+              </aside>
+            </div>
+
+            <a class="finance-cta finance-cta--hero" href="https://actwill.co.jp/lp5/unsou/a8/" rel="sponsored noopener" target="_blank">
+              <span class="finance-cta__caption">ご融資可能額（目安）</span>
+              <strong class="finance-cta__amount" aria-label="300万円から1億円">300<small>万円〜</small>1<small>億円</small></strong>
+              <span class="finance-cta__button">無料相談で条件を確認する <b aria-hidden="true">›</b></span>
+              <span class="finance-cta__note">担保・保証人 原則不要</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="diagnosis section-light" id="diagnosis" aria-labelledby="diagnosis-title">
+          <h2 id="diagnosis-title">まずは<span>3問</span>でカンタン自己診断</h2>
+          <div class="diagnosis-grid">
+            {diagnosis.map(({ number, question, note }, index) => (
+              <article class="diagnosis-card">
+                <p class="diagnosis-card__number">{number}</p>
+                <h3>{question.split("\n").map((line) => <>{line}<br /></>)}</h3>
+                <span class="diagnosis-card__note">{note}</span>
+                <div class="answer-pair" role="group" aria-label={`${number}の回答`}>
+                  <button type="button" data-diagnosis-answer data-question={index} data-value="yes" aria-pressed="false">はい</button>
+                  <button type="button" data-diagnosis-answer data-question={index} data-value="no" aria-pressed="false">いいえ</button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p class="diagnosis-result" aria-live="polite" data-diagnosis-result><strong>すべて「はい」</strong>の方は<strong>最短即日で資金調達</strong>できる可能性があります</p>
+        </section>
+
+        <section class="cashflow section-dark" aria-labelledby="cashflow-title">
+          <div class="section-heading section-heading--light">
+            <h2 id="cashflow-title">なぜ運送業は資金繰りが厳しくなりやすいのか</h2>
+          </div>
+          <div class="cashflow-grid">
+            {cashflow.map(({ icon, title, text }, index) => (
+              <article class:list={["cashflow-card", index === 3 && "cashflow-card--alert"]}>
+                <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p class="cashflow__closing">この“つなぎ資金”をスピーディにサポートします。</p>
+        </section>
+
+        <section class="compare section-light" id="compare" aria-labelledby="compare-title">
+          <div class="section-heading"><h2 id="compare-title">運送業に強い！4つの資金調達方法を比較</h2></div>
+          <div class="method-grid">
+            {methods.map(({ title, lead, icon, feature, highlight, fit }) => (
+              <article class:list={["method-card", highlight && "method-card--recommended"]}>
+                {highlight && <span class="recommended">おすすめ</span>}
+                <div class="method-card__head"><p>{lead}</p><h3>{title}</h3></div>
+                <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
+                <ul>{feature.map((item) => <li>{item}</li>)}</ul>
+                <p class="method-card__fit">{fit}</p>
+              </article>
+            ))}
+          </div>
+          <a class="compare-more" href="#conditions">それぞれの特徴を詳しく見る <b aria-hidden="true">›</b></a>
+        </section>
+
+        <section class="proof-strip" aria-label="実績とサポート体制">
+          <p><svg aria-hidden="true"><use href="#i-chart" /></svg><span>運送業の支援実績</span><strong>多数</strong></p>
+          <p><svg aria-hidden="true"><use href="#i-document" /></svg><span>累計取扱件数</span><strong>多数</strong></p>
+          <p><svg aria-hidden="true"><use href="#i-alert" /></svg><span>安心の運営体制</span><strong>金融機関提携</strong></p>
+        </section>
+
+        <section class="conditions section-light" id="conditions" aria-labelledby="conditions-title">
+          <div class="section-heading"><h2 id="conditions-title">ビジネスローンのご利用条件 <small>（2026年8月5日時点）</small></h2></div>
+          <div class="condition-grid">
+            <div><span>ご融資可能額</span><strong>300万円〜1億円</strong></div>
+            <div><span>実質年率</span><strong>3.00%〜15.00%</strong></div>
+            <div><span>最短審査</span><strong>最短60分</strong></div>
+            <div><span>返済期間</span><strong>1ヶ月〜3年</strong></div>
+            <div><span>担保・保証人</span><strong>原則不要</strong></div>
+          </div>
+          <p class="condition-caution"><svg aria-hidden="true"><use href="#i-alert" /></svg>審査の結果によっては、ご希望に添えない場合がございます。金利は審査結果により決定します。</p>
+        </section>
+
+        <section class="flow section-light" aria-labelledby="flow-title">
+          <div class="section-heading"><h2 id="flow-title">お申し込みからご契約までの流れ</h2></div>
+          <ol class="flow-grid">
+            {flow.map(({ step, icon, title, text }) => (
+              <li>
+                <p>{step}</p><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg><h3>{title}</h3><span>{text}</span>
+              </li>
+            ))}
+          </ol>
+          <div class="document-strip">
+            <p>ご準備いただく書類（例）</p>
+            <ul>{documents.map((item) => <li><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          </div>
+        </section>
+
+        <section class="fit section-light" aria-label="ご利用に向くケース">
+          <article class="fit-card fit-card--good">
+            <header><h2>このような方におすすめです</h2></header>
+            <ul><li>急な修理や買替で資金が必要</li><li>入金サイクルが長く運転資金が不足</li><li>銀行融資を待たずに早く資金調達したい</li><li>担保や不動産を用意したくない</li></ul>
+            <div class="fit-card__photo" aria-hidden="true"></div>
+          </article>
+          <article class="fit-card fit-card--caution">
+            <header><h2>このような方には向いていない可能性があります</h2></header>
+            <ul><li>売上が極端に少ない・創業間もない</li><li>金融事故の履歴がある</li><li>返済原資がまったく不明確</li><li>短期での返済が難しい高額借入を希望</li></ul>
+            <div class="fit-card__photo" aria-hidden="true"></div>
+          </article>
+        </section>
+
+        <section class="preparation section-light" aria-labelledby="preparation-title">
+          <div class="section-heading"><h2 id="preparation-title">ご相談前にチェック！5つのポイント</h2></div>
+          <div class="preparation-grid">
+            {preparation.map(({ icon, title }) => (
+              <article><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg><p>{title.split("\n").map((line) => <>{line}<br /></>)}</p></article>
+            ))}
+          </div>
+        </section>
+
+        <section class="faq section-light" aria-labelledby="faq-title">
+          <div class="section-heading"><h2 id="faq-title">よくあるご質問</h2></div>
+          <div class="faq-grid">
+            {faqs.map(([question, answer]) => (
+              <details><summary><span>Q.</span>{question}</summary><p>{answer}</p></details>
+            ))}
+          </div>
+        </section>
+
+        <section class="final-cta" id="contact" aria-labelledby="contact-title">
+          <div class="final-cta__photo" aria-hidden="true"></div>
+          <div class="final-cta__shade" aria-hidden="true"></div>
+          <div class="final-cta__content">
+            <h2 id="contact-title">資金繰りの不安を、<br />今すぐ解消しませんか？</h2>
+            <div class="final-cta__points"><span>✓ 最短即日融資</span><span>✓ 担保・保証人 原則不要</span><span>✓ 全国対応・来店不要</span></div>
+            <div class="a8-banner">
+              <a href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH" rel="nofollow sponsored noopener" target="_blank">
+                <img width="300" height="250" alt="アクト・ウィルの運送業向けビジネスローンキャンペーン" src="https://www29.a8.net/svt/bgt?aid=260805217230&wid=007&eno=01&mid=s00000026011004003000&mc=1" />
+              </a>
+              <img class="a8-banner__pixel" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH" alt="" />
+            </div>
+            <a class="finance-cta finance-cta--final" href="https://actwill.co.jp/lp5/unsou/a8/" rel="sponsored noopener" target="_blank">
+              <span class="finance-cta__caption">ご融資可能額（目安）</span>
+              <strong class="finance-cta__amount" aria-label="300万円から1億円">300<small>万円〜</small>1<small>億円</small></strong>
+              <span class="finance-cta__button">無料相談で条件を確認する <b aria-hidden="true">›</b></span>
+              <span class="finance-cta__note">アクト・ウィル公式サイトへ移動します</span>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p class="site-footer__brand">アクト・ウィル 運送業向けビジネスローン</p>
+        <p>当サイトについて ｜ 個人情報の取り扱い ｜ 広告掲載ポリシー ｜ よくあるご質問</p>
+        <p>当サイトはアクト・ウィル株式会社のプロモーションを含みます。掲載情報は更新時点の内容であり、最新条件はアクト・ウィル公式サイトをご確認ください。</p>
+      </footer>
+    </div>
+
+    <aside class="sticky-contact" aria-label="お問い合わせ">
+      <a href="https://actwill.co.jp/lp5/unsou/a8/" rel="sponsored noopener" target="_blank"><strong>無料相談で条件を確認する</strong><b aria-hidden="true">›</b></a>
+    </aside>
+
+    <script>
+      const answers = new Map();
+      const buttons = document.querySelectorAll("[data-diagnosis-answer]");
+      const result = document.querySelector("[data-diagnosis-result]");
+      const stickyContact = document.querySelector(".sticky-contact");
+      const hero = document.querySelector(".hero");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const question = button.dataset.question;
+          const value = button.dataset.value;
+          answers.set(question, value);
+          document.querySelectorAll(`[data-question="${question}"]`).forEach((peer) => {
+            peer.setAttribute("aria-pressed", String(peer === button));
+          });
+
+          if (!result) return;
+          if (answers.size < 3) {
+            result.innerHTML = `あと<strong>${3 - answers.size}問</strong>回答すると、結果が分かります。`;
+            return;
+          }
+          const allYes = [...answers.values()].every((answer) => answer === "yes");
+          result.innerHTML = allYes
+            ? `<strong>すべて「はい」</strong>です。<strong>最短即日で資金調達</strong>できる可能性があります。`
+            : `ご状況によっては、<strong>別の方法が適している</strong>場合があります。`;
+        });
+      });
+
+      if (stickyContact && hero) {
+        const contactObserver = new IntersectionObserver(([entry]) => {
+          stickyContact.classList.toggle("is-visible", !entry.isIntersecting);
+        }, { threshold: 0.08 });
+        contactObserver.observe(hero);
+      }
+    </script>
+  </body>
+</html>
