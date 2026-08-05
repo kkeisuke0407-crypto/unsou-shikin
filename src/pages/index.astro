@@ -99,18 +99,6 @@ const faqs = [
           <div class="hero__photo" aria-hidden="true"></div>
           <div class="hero__shade" aria-hidden="true"></div>
           <div class="hero__content">
-            <div class="pain-panel">
-              <p class="pain-panel__lead"><svg aria-hidden="true"><use href="#i-alert" /></svg>こんなお悩み、ありませんか？</p>
-              <div class="pain-grid">
-                {pains.map(({ icon, title }) => (
-                  <article class="pain-card">
-                    <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
-                    <p>{title.split("\n").map((line) => <>{line}<br /></>)}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
             <div class="hero__copy">
               <p class="hero__kicker">最短で資金化し、<br />事業を止めない。</p>
               <h1 id="hero-title">運送業の資金調達は<br /><strong>スピードが命</strong></h1>
@@ -131,6 +119,20 @@ const faqs = [
               <span class="finance-cta__button">無料相談で条件を確認する <b aria-hidden="true">›</b></span>
               <span class="finance-cta__note">担保・保証人 原則不要</span>
             </a>
+          </div>
+        </section>
+
+        <section class="pain-section section-dark" aria-labelledby="pain-title">
+          <div class="pain-panel">
+            <p class="pain-panel__lead" id="pain-title"><svg aria-hidden="true"><use href="#i-alert" /></svg>こんなお悩み、ありませんか？</p>
+            <div class="pain-grid">
+              {pains.map(({ icon, title }) => (
+                <article class="pain-card">
+                  <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
+                  <p>{title.split("\n").map((line) => <>{line}<br /></>)}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

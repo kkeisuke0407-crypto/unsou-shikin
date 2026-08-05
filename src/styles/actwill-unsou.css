@@ -138,6 +138,14 @@ summary:focus-visible {
   margin-bottom: clamp(var(--act-space-lg), 3vw, var(--act-space-xl));
 }
 
+.pain-section {
+  padding: var(--act-space-lg) clamp(var(--act-space-md), 4vw, var(--act-space-lg));
+}
+
+.pain-section .pain-panel {
+  margin: 0;
+}
+
 .pain-panel__lead {
   display: flex;
   align-items: center;
