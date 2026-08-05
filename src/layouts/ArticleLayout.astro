@@ -1,0 +1,61 @@
+---
+import "../../tokens.css";
+import "../styles/actwill-unsou.css";
+import "../styles/article.css";
+import IconSprite from "../components/IconSprite.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  updated: string;
+}
+
+const { title, description, updated } = Astro.props;
+
+// A8.net の計測付きリンク。actwill.co.jp への直リンクは成果が計測されないため使わない。
+const A8_LINK = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH";
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <IconSprite />
+
+    <div class="site-shell">
+      <header class="topbar" aria-label="広告表示">
+        <p>PR：アクト・ウィル株式会社のプロモーションを含みます</p>
+        <span>法人向け</span>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <p class="site-footer__brand">アクト・ウィル 運送業向けビジネスローン</p>
+        <p>当サイトについて ｜ 個人情報の取り扱い ｜ 広告掲載ポリシー</p>
+        <p>
+          当サイトはアクト・ウィル株式会社のプロモーションを含みます。掲載している条件は{updated}時点で
+          公式サイトおよび公的機関の公表資料により確認した内容です。最新の条件は必ず公式サイトでご確認ください。
+          本記事は情報提供を目的としたものであり、融資の可否・条件は審査によって決まります。
+        </p>
+      </footer>
+    </div>
+
+    <aside class="sticky-contact" aria-label="お問い合わせ">
+      <a href={A8_LINK} rel="nofollow sponsored noopener" target="_blank">
+        <strong>無料相談で条件を確認する</strong><b aria-hidden="true">›</b>
+      </a>
+    </aside>
+  </body>
+</html>

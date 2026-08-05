@@ -1,0 +1,427 @@
+---
+import ArticleLayout from "../layouts/ArticleLayout.astro";
+
+const A8 = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH";
+const UPDATED = "2026年8月5日";
+
+const steps = [
+  { no: "STEP 1", icon: "person", title: "自社は対象か", text: "法人・金額・期日の3点で判定" },
+  { no: "STEP 2", icon: "scale", title: "どの手段が合うか", text: "5つの選択肢を速さとコストで比較" },
+  { no: "STEP 3", icon: "clipboard", title: "条件は納得できるか", text: "金利・保証・返済を確認して判断" },
+];
+
+const gate = [
+  { q: "法人ですか？", yes: "対象です", no: "個人事業主の方は対象外。公庫やファクタリングを検討", icon: "person" },
+  { q: "必要な資金は300万円以上ですか？", yes: "対象です", no: "300万円未満は対象外。少額対応のサービスを検討", icon: "calculator" },
+  { q: "期日まで1か月を切っていますか？", yes: "この記事が当てはまります", no: "時間があるなら公庫・銀行が先。並行して条件だけ調べておく", icon: "calendar" },
+];
+
+const cause = [
+  { icon: "fuel", title: "燃料費・高速代", text: "走った分だけその場で発生する" },
+  { icon: "person", title: "人件費・社会保険料", text: "毎月決まった日に支払う" },
+  { icon: "wrench", title: "車検・整備・修理", text: "高額かつ突発的。止めれば売上が消える" },
+  { icon: "calendar", title: "運賃の入金", text: "取適法施行後も支払期日は受領後60日以内" },
+];
+
+const evidence = [
+  { value: "48.9%", label: "エネルギーコストの価格転嫁率", note: "中小企業庁 2026年3月調査（2026年6月26日公表）" },
+  { value: "48%", label: "営業赤字の運送事業者の割合", note: "全ト協 経営分析報告書 令和6年度決算版" },
+  { value: "62%", label: "車両10台以下で営業赤字の割合", note: "同上。営業損益率は−2.3%" },
+  { value: "13.5%", label: "燃料費率", note: "同上。軽油は平均166.7円（前年比+9.2%）" },
+];
+
+const methods = [
+  { icon: "bank", name: "日本政策金融公庫", speed: "遅い", cost: "低い", need: "決算書・事業計画", verdict: "金利最優先で時間に余裕があるなら第一候補" },
+  { icon: "home", name: "保証協会付き・銀行プロパー", speed: "遅い", cost: "低い", need: "決算書・取引実績", verdict: "メインバンクと計画的に進める場合" },
+  { icon: "hand", name: "ノンバンクのビジネスローン", speed: "速い傾向", cost: "銀行より高い", need: "決算書類・本人確認書類", verdict: "期日が動かせないときの選択肢", pick: true },
+  { icon: "document", name: "ファクタリング", speed: "速い傾向", cost: "手数料方式", need: "確定した請求書", verdict: "請求書があり、負債を増やしたくない場合" },
+  { icon: "truck", name: "リースバック・車両担保", speed: "中程度", cost: "個別条件", need: "売却・担保にできる車両", verdict: "車両を使い続けたまま資金化したい場合" },
+];
+
+const terms = [
+  ["融資対象", "法人"],
+  ["ご融資金額", "300万円〜1億円"],
+  ["実質年率", "3.00%〜15.00%"],
+  ["遅れ損害金年率", "20.00%"],
+  ["返済期間・回数", "1ヶ月〜3年 / 1回〜36回"],
+  ["返済方法", "一括または分割（元金均等払い）"],
+  ["契約時締結費用", "印紙代（実費）"],
+  ["対応エリア", "来店不要・全国対応"],
+];
+
+const cautions = [
+  {
+    icon: "alert",
+    title: "上限15.00%は、法律上の上限と同じ水準",
+    text: "元本100万円以上の貸付における利息制限法の上限は年15%です。下限の3.00%が必ず適用されるわけではありません。適用金利は審査で決まるため、契約前に必ず確認してください。",
+  },
+  {
+    icon: "person",
+    title: "代表者の連帯保証は必要",
+    text: "第三者の保証人・不動産担保は原則不要とされていますが、法人契約のため代表者個人の連帯保証は必要です。一部の融資では担保を求められる場合もあります（いずれも要審査）。",
+  },
+  {
+    icon: "clock",
+    title: "「最短60分」は仮審査の目安",
+    text: "その後に書類提出と契約手続きがあります。「最短即日契約可能」とされる一方、公式サイトには「審査があるため即日融資実行ができないこともある」とも明記されています。",
+  },
+];
+
+const verify = [
+  ["貸金業登録番号", "東京都知事（5）第31521号"],
+  ["登録（更新）日", "2026年3月20日"],
+  ["行政処分", "記載なし"],
+  ["日本貸金業協会 会員番号", "第005834号"],
+  ["データ更新日", "2026年6月16日現在"],
+];
+
+const faqs = [
+  ["個人事業主でも利用できますか？", "公式サイトには「融資対象：法人」と記載されています。個人事業主の方は、日本政策金融公庫の融資やファクタリングなど別の手段をご検討ください。"],
+  ["他社からの借入があっても相談できますか？", "事業性の法人向け貸付は総量規制の対象外です。既に借入があることだけを理由に申し込めないわけではありませんが、返済能力に関する審査はあります。"],
+  ["審査に通るか不安です。", "審査基準は公開されておらず、通過を保証できる情報はありません。公式サイトでは他社で断られた場合も申し込みは可能と案内されていますが、これは申し込みができるという意味であり、融資が受けられるという意味ではありません。"],
+  ["担保や保証人は必要ですか？", "法人契約のため代表者の連帯保証は必要です。そのうえで、第三者の保証人や不動産担保は原則不要と記載されています。いずれも審査によります。"],
+  ["相談したら営業電話がかかってきませんか？", "公式サイトには「弊社から電話営業を行うことはございません」と明記されています。新規の申し込みは公式サイト上の専用チャットからのみ受け付けています。"],
+  ["相談した後に断ることはできますか？", "相談や仮審査の申し込みは契約の締結ではありません。提示された金利・返済額・期間を確認したうえで判断してください。"],
+];
+---
+
+<ArticleLayout
+  title="運送業の資金調達ガイド｜3ステップで自社に合う方法を確認する"
+  description="運送事業を営む法人向けに、資金調達の判断を3ステップで整理。対象判定・5手段の比較・貸付条件の確認まで、公式サイトと公的資料で裏づけた情報だけをまとめました。"
+  updated={UPDATED}
+>
+  <header class="article-head">
+    <p class="article-head__meta">
+      <span>最終更新 {UPDATED}</span><span>運送業 / 法人向け</span><span>判断支援ガイド</span>
+    </p>
+    <h1>運送業の資金調達ガイド｜<strong>3ステップ</strong>で自社に合う方法を確認する</h1>
+    <p class="article-head__lead">
+      資金調達の方法はいくつもありますが、選ぶ順番は決まっています。
+      「自社は対象か」→「どの手段が合うか」→「条件は納得できるか」。この順で確認すれば、迷う時間を減らせます。
+    </p>
+    <div class="article-head__target">
+      <p>このガイドの対象</p>
+      <ul>
+        <li>一般貨物・軽貨物などの運送事業を営む<strong>法人</strong></li>
+        <li>必要な資金が<strong>300万円以上</strong></li>
+        <li>支払期日が決まっていて、<strong>時間に余裕がない</strong></li>
+      </ul>
+      <small>当てはまらない場合の選択肢も、STEP 1 と STEP 2 で示しています。</small>
+    </div>
+  </header>
+
+  <section class="flow section-dark" aria-labelledby="steps-title">
+    <div class="section-heading section-heading--light">
+      <h2 id="steps-title">確認する順番</h2>
+    </div>
+    <ol class="flow-grid">
+      {steps.map(({ no, icon, title, text }) => (
+        <li>
+          <p>{no}</p><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg><h3>{title}</h3><span>{text}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="diagnosis section-light" id="step1" aria-labelledby="step1-title">
+    <h2 id="step1-title">STEP 1｜自社は<span>対象</span>か</h2>
+    <div class="diagnosis-grid">
+      {gate.map(({ q, yes, no }, index) => (
+        <article class="diagnosis-card">
+          <p class="diagnosis-card__number">Q{index + 1}</p>
+          <h3>{q}</h3>
+          <span class="diagnosis-card__note">はい → {yes}</span>
+          <span class="diagnosis-card__note">いいえ → {no}</span>
+        </article>
+      ))}
+    </div>
+    <p class="diagnosis-result"><strong>3つすべて「はい」</strong>なら、STEP 2 に進んでください</p>
+  </section>
+
+  <section class="cashflow section-dark" aria-labelledby="cause-title">
+    <div class="section-heading section-heading--light">
+      <h2 id="cause-title">なぜ運送業は資金が先に出るのか</h2>
+    </div>
+    <div class="cashflow-grid">
+      {cause.map(({ icon, title, text }, index) => (
+        <article class:list={["cashflow-card", index === 3 && "cashflow-card--alert"]}>
+          <svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+    <p class="cashflow__closing">先に払い、後で受け取る。この順番自体は制度が変わっても残ります。</p>
+  </section>
+
+  <div class="prose">
+    <section>
+      <h2>数字で見る、運送業の資金繰り</h2>
+      <div class="data-list">
+        {evidence.map(({ value, label, note }) => (
+          <div><dt>{label}</dt><dd>{value}<em>{note}</em></dd></div>
+        ))}
+      </div>
+      <p>
+        燃料や人件費が上がっても、上昇分のおよそ半分しか運賃に反映できていないのが全業種の平均です。
+        そして<strong>トラック運送業は、価格交渉の実施状況・価格転嫁率とも32業種中で最下位圏</strong>と報告されています。
+        この差が、そのまま運転資金の必要性になっています。
+      </p>
+      <p class="source">出典：中小企業庁「価格交渉促進月間（2026年3月）フォローアップ調査」（2026年6月26日公表、回答69,625社）／全日本トラック協会「経営分析報告書 令和6年度決算版」（2026年4月公表、分析対象2,631者・報道による）</p>
+    </section>
+  </div>
+
+  <section class="compare section-light" id="step2" aria-labelledby="step2-title">
+    <div class="section-heading"><h2 id="step2-title">STEP 2｜どの手段が合うか</h2></div>
+    <div class="compare-stack" style="padding-inline:clamp(1rem,4vw,1.5rem)">
+      {methods.map(({ icon, name, speed, cost, need, verdict, pick }) => (
+        <article class:list={["compare-item", pick && "compare-item--pick"]}>
+          <h3><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>{name}</h3>
+          <div class="compare-item__specs">
+            <div><span>スピード</span><strong>{speed}</strong></div>
+            <div><span>コスト</span><strong>{cost}</strong></div>
+            <div><span>必要なもの</span><strong>{need}</strong></div>
+          </div>
+          <p>{verdict}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <div class="prose">
+    <section>
+      <div class="note">
+        <p class="note__label"><svg aria-hidden="true"><use href="#i-scale" /></svg>選ぶときの軸はひとつ</p>
+        <p>
+          <strong>金利で選ぶなら公庫・銀行。期日で選ぶならビジネスローン、ファクタリング、車両活用。</strong>
+          ただしファクタリングは確定した請求書、リースバックは車両が前提です。
+        </p>
+        <p>
+          参考までに、日本政策金融公庫（国民生活事業）の基準利率は2026年8月3日現在で無担保 年3.60〜5.30%、有担保 年2.60〜4.90%。
+          金利だけを見れば公庫が有利です。それでもノンバンクが選ばれるのは、<strong>間に合わない選択肢は選択肢にならない</strong>からです。
+        </p>
+      </div>
+
+      <div class="cta-block">
+        <p class="cta-block__lead">
+          ノンバンクのビジネスローンのうち、運送事業者向けに条件を公開している一社がアクト・ウィルです。
+          <strong>法人向け・300万円〜1億円・実質年率3.00%〜15.00%・来店不要で全国対応</strong>と公式サイトに記載されています。
+        </p>
+        <a class="finance-cta" href={A8} rel="nofollow sponsored noopener" target="_blank">
+          <span class="finance-cta__caption">ご融資可能額（目安）</span>
+          <strong class="finance-cta__amount" aria-label="300万円から1億円">300<small>万円〜</small>1<small>億円</small></strong>
+          <span class="finance-cta__button">公式サイトで条件を確認する <b aria-hidden="true">›</b></span>
+          <span class="finance-cta__note">相談は無料です</span>
+        </a>
+        <p class="cta-block__disclaimer">※審査があるため、融資を保証するものではありません。</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="conditions section-light" id="step3" aria-labelledby="step3-title">
+    <div class="section-heading">
+      <h2 id="step3-title">STEP 3｜条件は納得できるか <small>（{UPDATED}時点）</small></h2>
+    </div>
+    <div class="condition-grid">
+      <div><span>ご融資可能額</span><strong>300万円〜1億円</strong></div>
+      <div><span>実質年率</span><strong>3.00%〜15.00%</strong></div>
+      <div><span>遅れ損害金</span><strong>年率20.00%</strong></div>
+      <div><span>返済期間</span><strong>1ヶ月〜3年</strong></div>
+      <div><span>融資対象</span><strong>法人</strong></div>
+    </div>
+    <p class="condition-caution">
+      <svg aria-hidden="true"><use href="#i-alert" /></svg>
+      適用される金額・金利・期間は審査によって決まります。掲載条件は公式サイトの記載に基づきます。
+    </p>
+  </section>
+
+  <div class="prose">
+    <section>
+      <h2>条件の全項目</h2>
+      <div class="data-list">
+        {terms.map(([key, value]) => (
+          <div><dt>{key}</dt><dd>{value}</dd></div>
+        ))}
+        <div><dt>保証人・担保</dt><dd>第三者保証人・不動産担保は原則不要（要審査）<em>法人契約のため代表者の連帯保証は必要</em></dd></div>
+        <div><dt>必要書類</dt><dd>代表者本人を確認する書類、決算書類の一部<em>損益計算書、売掛金・買掛金の内訳書など</em></dd></div>
+        <div><dt>審査</dt><dd>最短60分<em>仮審査の目安</em></dd></div>
+        <div><dt>申込方法</dt><dd>公式サイト上の専用チャット<em>電話での新規申し込みは受付なし</em></dd></div>
+      </div>
+      <p class="source">出典：アクト・ウィル株式会社 公式サイト（{UPDATED}確認）</p>
+
+      <h3>申し込む前に、必ず押さえておく3点</h3>
+      {cautions.map(({ icon, title, text }) => (
+        <div class="note">
+          <p class="note__label"><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>{title}</p>
+          <p>{text}</p>
+        </div>
+      ))}
+
+      <h3>毎月の返済額の目安</h3>
+      <div class="data-list">
+        <div><dt>300万円 / 12回</dt><dd>約 260,000円〜</dd></div>
+        <div><dt>500万円 / 24回</dt><dd>約 220,000円〜</dd></div>
+        <div><dt>1,000万円 / 36回</dt><dd>約 300,000円〜</dd></div>
+        <div><dt>3,000万円 / 36回</dt><dd>約 900,000円〜</dd></div>
+      </div>
+      <p class="source">
+        公式サイト掲載の目安。実際の返済額は実質年率や契約内容によって変動します。
+        参考：1,000万円を36回で返済する場合の利息総額は、年3.00%で約46万円、年15.00%で約231万円
+        （元金均等・利息のみの単純計算による編集部試算）。
+      </p>
+
+      <div class="cta-block">
+        <p class="cta-block__lead">
+          条件を見て「返せそうか」の見当がついたら、次は<strong>自社にどの金利が適用されるか</strong>です。
+          これは審査を経ないと分かりません。相談は無料で、公式サイトには
+          <strong>「弊社から電話営業を行うことはございません」</strong>と明記されています。
+        </p>
+        <a class="finance-cta" href={A8} rel="nofollow sponsored noopener" target="_blank">
+          <span class="finance-cta__caption">実質年率</span>
+          <strong class="finance-cta__amount" aria-label="3.00%から15.00%">3.00<small>%〜</small>15.00<small>%</small></strong>
+          <span class="finance-cta__button">適用条件を公式サイトで確認する <b aria-hidden="true">›</b></span>
+          <span class="finance-cta__note">相談は無料です</span>
+        </a>
+        <p class="cta-block__disclaimer">※審査があるため、融資を保証するものではありません。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>この会社は信用できるか｜自分で確認する手順</h2>
+      <p>
+        事業者向けの貸付を業として行うには貸金業登録が必要で、登録情報は
+        金融庁の「登録貸金業者情報検索サービス」で誰でも無料で照会できます。
+      </p>
+      <ol>
+        <li>金融庁「登録貸金業者情報検索サービス」を開く</li>
+        <li>「商号・名称」に会社名を入力して検索する</li>
+        <li>登録番号・所在地・電話番号が、公式サイトの表記と一致するか確認する</li>
+      </ol>
+      <p>実際に照会した結果は次のとおりです。公式サイトの表記と一致していました。</p>
+
+      <div class="verify-list">
+        {verify.map(([key, value]) => (
+          <div class="verify-item">
+            <p class="verify-item__key">{key}</p>
+            <p class="verify-item__value">{value}</p>
+          </div>
+        ))}
+      </div>
+      <p class="source">出典：金融庁「登録貸金業者情報検索サービス」（{UPDATED}確認）。貸金業登録は3年ごとの更新制です。</p>
+
+      <div class="note">
+        <p class="note__label"><svg aria-hidden="true"><use href="#i-shield" /></svg>公式サイトが「電話営業は行わない」と明記している</p>
+        <p>
+          公式サイトには、同社を名乗る悪質な業者がいるとの報告を受けている旨、営業所は池袋のみであること、
+          そして<strong>同社から電話営業を行うことはない</strong>ことが記載されています。
+          新規の申し込みは公式サイト上のチャットのみで、電話では受け付けていません。
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <section class="flow section-light" aria-labelledby="apply-title">
+    <div class="section-heading"><h2 id="apply-title">申し込みから契約まで</h2></div>
+    <ol class="flow-grid">
+      <li><p>STEP 1</p><svg aria-hidden="true"><use href="#i-document" /></svg><h3>お申し込み</h3><span>公式サイトのチャットから</span></li>
+      <li><p>STEP 2</p><svg aria-hidden="true"><use href="#i-search" /></svg><h3>仮審査</h3><span>最短60分</span></li>
+      <li><p>STEP 3</p><svg aria-hidden="true"><use href="#i-edit" /></svg><h3>結果・書類提出</h3><span>FAXまたは郵送</span></li>
+      <li><p>STEP 4</p><svg aria-hidden="true"><use href="#i-handshake" /></svg><h3>ご契約</h3><span>振込または現金持参</span></li>
+    </ol>
+    <div class="document-strip">
+      <p>準備しておくと早いもの</p>
+      <ul>
+        <li><span aria-hidden="true">✓</span>代表者本人を確認できる書類</li>
+        <li><span aria-hidden="true">✓</span>決算書類の一部</li>
+        <li><span aria-hidden="true">✓</span>必要な金額と使途のメモ</li>
+        <li><span aria-hidden="true">✓</span>資金が必要になる期日</li>
+        <li><span aria-hidden="true">✓</span>現在の借入状況</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="fit section-light" aria-label="ご利用に向くケース">
+    <article class="fit-card fit-card--good">
+      <header><h2>向いているケース</h2></header>
+      <ul>
+        <li>法人で、必要な資金が300万円以上</li>
+        <li>支払期日が決まっていて、銀行の審査を待つ時間がない</li>
+        <li>第三者保証人や不動産担保を用意できない</li>
+        <li>来店できない・遠方にいる</li>
+        <li>確定した請求書がなくファクタリングが使いにくい</li>
+        <li>銀行の借入枠を温存したい</li>
+      </ul>
+    </article>
+    <article class="fit-card fit-card--caution">
+      <header><h2>向いていないケース</h2></header>
+      <ul>
+        <li>個人事業主（融資対象は法人）</li>
+        <li>必要な資金が300万円未満</li>
+        <li>金利を最優先していて時間に余裕がある</li>
+        <li>代表者の連帯保証を避けたい</li>
+        <li>返済計画が立てられていない</li>
+        <li>4年以上の長期返済を前提にしたい</li>
+      </ul>
+    </article>
+  </section>
+
+  <div class="prose">
+    <section>
+      <div class="cta-block">
+        <p class="cta-block__lead">
+          3つのステップを確認して条件が合いそうなら、次は<strong>自社の状況で、いくら・どの条件で借りられるか</strong>です。
+          これは審査を経ないと分かりません。公式サイトでは相談を無料で受け付けており、
+          申し込む前に相談だけすることもできると案内されています。
+        </p>
+        <a class="finance-cta" href={A8} rel="nofollow sponsored noopener" target="_blank">
+          <span class="finance-cta__caption">対象</span>
+          <strong class="finance-cta__amount" aria-label="運送業の法人">運送業<small>の法人</small></strong>
+          <span class="finance-cta__button">無料相談で自社の条件を確認する <b aria-hidden="true">›</b></span>
+          <span class="finance-cta__note">アクト・ウィル公式サイトへ移動します</span>
+        </a>
+        <p class="cta-block__disclaimer">※審査があります。融資を保証するものではありません。申し込みは公式サイトのチャットから行います。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>相談する前に確認しておきたい5つのこと</h2>
+      <ul class="checklist">
+        <li><strong>貸金業登録番号を確認する</strong>金融庁のサイトで、商号を入力すれば誰でも照会できます。</li>
+        <li><strong>金利と遅延損害金を契約前に確認する</strong>利息制限法の上限は、元本100万円以上で年15%です。</li>
+        <li><strong>必要な金額と使途を1枚にまとめる</strong>「いくらを・何に・いつまでに」が明確なほど説明は早く済みます。</li>
+        <li><strong>返済計画を先に立てる</strong>借入は資金繰りの時間を買う手段で、収支そのものを改善するものではありません。</li>
+        <li><strong>手数料の名目を確認する</strong>名目のはっきりしない費用の先払いを求める業者には注意してください。</li>
+      </ul>
+      <p class="source">金融庁および消費者庁は、無登録業者による高額な手数料の請求や、実態が貸付である「偽装ファクタリング」について注意を呼びかけています。</p>
+    </section>
+  </div>
+
+  <section class="faq section-light" aria-labelledby="faq-title">
+    <div class="section-heading"><h2 id="faq-title">よくあるご質問</h2></div>
+    <div class="faq-grid">
+      {faqs.map(([question, answer]) => (
+        <details><summary><span>Q.</span>{question}</summary><p>{answer}</p></details>
+      ))}
+    </div>
+  </section>
+
+  <a class="sibling-link" href="/article">
+    <span>同じ内容を、根拠から順に読める記事版</span>
+    <strong>運送業の資金調達｜条件と注意点をすべて確認する <b aria-hidden="true">›</b></strong>
+  </a>
+
+  <section class="refs" aria-labelledby="refs-title">
+    <h2 id="refs-title">本ガイドの出典</h2>
+    <ol>
+      <li>アクト・ウィル株式会社 公式サイト（貸付条件・会社概要）</li>
+      <li>金融庁「登録貸金業者情報検索サービス」</li>
+      <li>全日本トラック協会「経営分析報告書 令和6年度決算版」（2026年4月公表）</li>
+      <li>中小企業庁「価格交渉促進月間（2026年3月）フォローアップ調査」（2026年6月26日公表）</li>
+      <li>国土交通省「新たなトラックの標準的運賃を告示しました」（2024年3月22日）</li>
+      <li>中小企業庁・政府広報オンライン「中小受託取引適正化法（取適法）」（2026年1月1日施行）</li>
+      <li>日本貸金業協会「上限金利について」「総量規制が適用されない場合について」</li>
+      <li>日本政策金融公庫「融資利率一覧」（2026年8月3日現在）</li>
+      <li>金融庁「ファクタリングの利用に関する注意喚起」／消費者庁「違法な貸付（ファクタリング等）や悪質な金融業者にご注意ください」</li>
+    </ol>
+  </section>
+</ArticleLayout>
