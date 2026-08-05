@@ -1,0 +1,14 @@
+evidence_id,source_type,source_url,observation_date,used_for,claim_boundary
+E01,広告主公式LP,https://actwill.co.jp/lp5/unsou/a8/,2026-08-05,対象法人・融資額・金利・審査表現・全国対応,最新条件は実装前に再確認
+C01,直接競合LP,https://no1service.co.jp/unsou/,2026-08-05,運送業の支払い場面・CTA位置・構造,文言・数値・画像・事例は転載不可
+C02,直接競合LP,https://www.jtc-nagoya.co.jp/tf_lp/,2026-08-05,診断導線・条件表示・安心材料の構造,文言・数値・画像・事例は転載不可
+C03,直接競合LP,https://www.55truck.com/lp_lease_back_ppc_01/,2026-08-05,リースバックという代替手段の構造,文言・数値・画像・事例は転載不可
+C04,競合解説記事,https://www.g-autolease.com/supports/%E6%80%A5%E3%81%8E%E9%81%8B%E8%BB%A2%E8%B3%87%E9%87%91%E3%82%92%E8%AA%BF%E9%81%94%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%90%E3%83%83%E3%82%AF%E3%81%AE%E5%AF%A9%E6%9F%BB/,2026-08-05,方式の比較順・注意点,文言・数値・画像・事例は転載不可
+C05,比較記事,https://jp-fs.jp/factoring/factoring-transportation/,2026-08-05,表→個別説明の構造,社名順・順位・料率・紹介リンクは転載不可
+C06,比較データベース,https://facutto.jp/ranking/category/transportation,2026-08-05,モバイル比較表・用途別カードの構造,評価・口コミ・掲載数は転載不可
+C07,比較ランキング,https://factoringdb.com/factoring/industry/transport,2026-08-05,候補一覧と判断軸の順番,ランキング・星・数値は転載不可
+C08,比較記事,https://ampersand-tax.jp/article/recommended-factoring-transportation/,2026-08-05,比較後の注意点・用語説明の順番,紹介順・広告リンク・条件は転載不可
+C09,比較教育記事,https://faclog.jp/magazine/transportation-industry-factoring/,2026-08-05,比較理由を業界課題から説明する構造,方式の優劣・個別条件は転載不可
+C10,比較記事,https://big-factoring.com/column/transport/,2026-08-05,適合判定を先に置く構造,個別紹介・順位・条件は転載不可
+S01,Google検索表示,https://www.google.com/search?hl=ja&gl=jp&q=%E9%81%8B%E9%80%81%E6%A5%AD+%E8%9E%8D%E8%B3%87,2026-08-05,スポンサー広告の分類と検索面観測,一時点の表示であり掲載継続を意味しない
+S02,Google検索表示,https://www.google.com/search?hl=ja&gl=jp&q=%E9%81%8B%E9%80%81%E6%A5%AD+%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%83%BC%E3%83%B3,2026-08-05,スポンサー広告の分類と検索面観測,一時点の表示であり掲載継続を意味しない
