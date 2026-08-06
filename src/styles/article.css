@@ -820,3 +820,121 @@
 .refs li {
   margin-block-end: var(--act-space-2xs);
 }
+
+/* ==========================================================
+   横スクロールする比較表（9社マトリクス）
+   モバイルでは列を潰さず、表そのものを横に流す。
+   ========================================================== */
+
+.table-scroll {
+  margin: var(--act-space-lg) 0 var(--act-space-sm);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll:focus-visible {
+  outline: 0.125rem solid var(--act-orange);
+  outline-offset: 0.125rem;
+}
+
+.table-scroll .kv-table {
+  margin: 0;
+}
+
+.kv-table--matrix {
+  min-inline-size: 56rem;
+  font-size: var(--act-text-xs);
+}
+
+.kv-table--matrix tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  inline-size: auto;
+  min-inline-size: 9rem;
+  background: var(--act-paper-warm);
+  font-size: var(--act-text-xs);
+  font-weight: 800;
+}
+
+.kv-table--matrix tr.is-key th {
+  background: oklch(98% 0.028 82);
+}
+
+.kv-table--matrix th em {
+  display: inline-block;
+  margin-inline-start: 0.4em;
+  padding: 0.1em 0.4em;
+  border-radius: var(--act-radius-pill, 999px);
+  background: var(--act-orange);
+  color: var(--act-orange-ink);
+  font-size: var(--act-text-2xs);
+  font-style: normal;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.kv-table--matrix td {
+  min-inline-size: 7rem;
+  line-height: 1.6;
+}
+
+.kv-table--matrix td:last-child {
+  min-inline-size: 14rem;
+}
+
+/* ==========================================================
+   会話パート（読者の素朴な疑問を先に代弁する）
+   ========================================================== */
+
+.dialogue {
+  display: grid;
+  gap: var(--act-space-xs);
+  margin: var(--act-space-lg) 0 var(--act-space-md);
+  padding: var(--act-space-md);
+  border: 0.0625rem solid var(--act-rule);
+  background: var(--act-paper-warm);
+}
+
+.dialogue p {
+  position: relative;
+  max-inline-size: 88%;
+  margin: 0;
+  padding: 0.7em 0.95em;
+  border-radius: 0.75rem;
+  font-size: var(--act-text-sm);
+  line-height: 1.75;
+}
+
+.dialogue p.ask {
+  justify-self: start;
+  border: 0.0625rem solid var(--act-rule-dark);
+  border-start-start-radius: 0.125rem;
+  background: var(--act-paper);
+  font-weight: 700;
+}
+
+.dialogue p.say {
+  justify-self: end;
+  border: 0.0625rem solid transparent;
+  border-start-end-radius: 0.125rem;
+  background: var(--act-ink);
+  color: var(--act-paper);
+}
+
+.dialogue p.say strong {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--act-orange);
+  text-decoration-thickness: 0.1875rem;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 30rem) {
+  .dialogue {
+    padding: var(--act-space-sm);
+  }
+  .dialogue p {
+    max-inline-size: 94%;
+  }
+}
