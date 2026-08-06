@@ -938,3 +938,53 @@
     max-inline-size: 94%;
   }
 }
+
+/* ==========================================================
+   おすすめ順の見出しに添えるバッジ
+   ========================================================== */
+
+.rank-badge {
+  display: inline-block;
+  margin-inline-start: 0.5em;
+  padding: 0.15em 0.55em;
+  border-radius: var(--act-radius-pill, 999px);
+  background: var(--act-orange);
+  color: var(--act-orange-ink);
+  font-size: var(--act-text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
+/* ==========================================================
+   執筆者・運営者ボックス
+   ========================================================== */
+
+.author-box {
+  margin: var(--act-space-xl) 0 0;
+  padding: var(--act-space-md);
+  border: 0.0625rem solid var(--act-rule-dark);
+  background: var(--act-paper-warm);
+}
+
+.author-box h2 {
+  margin: 0 0 var(--act-space-2xs);
+  font-size: var(--act-text-base);
+  font-weight: 800;
+}
+
+.author-box p {
+  margin: 0 0 var(--act-space-2xs);
+  color: var(--act-ink-soft);
+  font-size: var(--act-text-xs);
+  line-height: 1.8;
+}
+
+.author-box p:last-child {
+  margin-block-end: 0;
+}
+
+.author-box strong {
+  color: var(--act-ink);
+  font-weight: 800;
+}

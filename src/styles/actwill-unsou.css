@@ -880,8 +880,12 @@ summary:focus-visible {
   stroke-width: 1.5;
 }
 
-.flow-grid h3 {
+.flow-grid h3,
+.flow-grid h4,
+.flow-grid .flow-name {
+  display: block;
   margin: var(--act-space-3xs) 0 0;
+  font-weight: 800;
   font-size: clamp(0.56rem, 2.1vw, var(--act-text-xs));
   line-height: 1.3;
 }
