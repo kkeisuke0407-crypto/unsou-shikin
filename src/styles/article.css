@@ -988,3 +988,129 @@
   color: var(--act-ink);
   font-weight: 800;
 }
+
+/* ==========================================================
+   ファーストビューのTOP3比較表
+   ========================================================== */
+
+.kv-table--top3 {
+  min-inline-size: 34rem;
+}
+
+.kv-table--top3 tbody th {
+  inline-size: auto;
+  min-inline-size: 8rem;
+  font-size: var(--act-text-sm);
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.kv-table--top3 th em {
+  display: inline-block;
+  margin-inline-start: 0.4em;
+  padding: 0.1em 0.4em;
+  border-radius: var(--act-radius-pill, 999px);
+  background: var(--act-orange);
+  color: var(--act-orange-ink);
+  font-size: var(--act-text-2xs);
+  font-style: normal;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.kv-table--top3 td:last-child {
+  min-inline-size: 7rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.kv-table--top3 a {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: var(--act-radius-pill, 999px);
+  background: var(--act-orange);
+  color: var(--act-orange-ink);
+  font-size: var(--act-text-xs);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.kv-table--top3 .no-link {
+  color: var(--act-muted);
+  font-size: var(--act-text-2xs);
+}
+
+.kv-table--top3 .scan-list {
+  margin: 0;
+}
+
+/* ==========================================================
+   目次の「もっと見る」
+   ========================================================== */
+
+.toc__more summary {
+  margin-block-start: var(--act-space-2xs);
+  padding: 0.5em 0;
+  color: var(--act-ink-soft);
+  cursor: pointer;
+  font-size: var(--act-text-xs);
+  font-weight: 800;
+  list-style: none;
+  text-align: center;
+}
+
+.toc__more summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc__more summary::after {
+  margin-inline-start: 0.4em;
+  content: "▾";
+}
+
+.toc__more[open] summary::after {
+  content: "▴";
+}
+
+.toc__more summary:hover {
+  color: var(--act-orange);
+}
+
+/* ==========================================================
+   関連記事
+   ========================================================== */
+
+.related-list {
+  margin: var(--act-space-md) 0 var(--act-space-sm);
+  padding: 0;
+  list-style: none;
+}
+
+.related-list li {
+  border-block-end: 0.0625rem solid var(--act-rule);
+}
+
+.related-list a {
+  display: block;
+  padding: 0.85em 1.6em 0.85em 0;
+  position: relative;
+  color: var(--act-ink);
+  font-size: var(--act-text-sm);
+  font-weight: 700;
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.related-list a::after {
+  position: absolute;
+  inset-inline-end: 0.3em;
+  inset-block-start: 50%;
+  color: var(--act-orange);
+  content: "›";
+  font-size: 1.2em;
+  transform: translateY(-50%);
+}
+
+.related-list a:hover {
+  color: var(--act-orange);
+}
