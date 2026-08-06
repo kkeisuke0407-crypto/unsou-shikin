@@ -1,13 +1,38 @@
 ---
 import ArticleLayout from "../layouts/ArticleLayout.astro";
 
-const A8 = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH";
+// A8.net 管理画面で本文用のテキストリンクを作成して取得（2026-08-06）。
+const A8 = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY";
 const UPDATED = "2026年8月6日";
 
 const PAGE_TITLE = "運送業におすすめなファクタリング会社15選！選び方や利用するときの注意点も紹介";
 const PAGE_DESC =
   "運送業におすすめの資金調達先15社を比較。手数料・入金スピード・買取可能額を公式サイトで確認し、確認できなかった項目も明記しました。選び方、メリット・デメリット、申し込みの流れも解説します。";
 const PAGE_URL = "https://unsou-shikin.hakobu-family.com/article";
+
+// 公式ページへの導線・ロゴ・表示キャプチャ。アクト・ウィルのみA8.netの計測リンクを使用する。
+const officialSources = [
+  { id: "actwill", name: "アクト・ウィル", url: A8, logo: "/article/logos/actwill.png", screenshot: "/article/official/official-actwill.png", affiliate: true },
+  { id: "escom", name: "エスコム", url: "https://scom-f.jp/", logo: "/article/logos/escom.png", screenshot: "/article/official/official-escom.png" },
+  { id: "betrading", name: "ビートレーディング", url: "https://betrading.jp/", logo: "/article/logos/betrading.svg", screenshot: "/article/official/official-betrading.png" },
+  { id: "support", name: "日本中小企業金融サポート機構", url: "https://chushokigyo-support.or.jp/", logo: "/article/logos/support.png", screenshot: "/article/official/official-support.png" },
+  { id: "topmanagement", name: "トップマネジメント", url: "https://top-management.co.jp/", logo: "/article/logos/topmanagement.png", screenshot: "/article/official/official-topmanagement.png" },
+  { id: "accel", name: "アクセルファクター", url: "https://accelfacter.co.jp/", logo: "/article/logos/accel.svg", screenshot: "/article/official/official-accel.png" },
+  { id: "jsagent", name: "事業資金エージェント", url: "https://js-agent.com/", logo: "/article/logos/jsagent.png", screenshot: "/article/official/official-jsagent.png" },
+  { id: "easyfactor", name: "Easy factor（イージーファクター）", url: "https://easyfactor.jp/", logo: "/article/logos/easyfactor.png", screenshot: "/article/official/official-easyfactor.png" },
+  { id: "ennavi", name: "えんナビ", url: "https://ennavi.tokyo/", logo: "/article/logos/ennavi.svg", screenshot: "/article/official/official-ennavi.png" },
+  { id: "paytoday", name: "PAYTODAY", url: "https://paytoday.jp/", logo: "/article/logos/paytoday.png", screenshot: "/article/official/official-paytoday.png" },
+  { id: "factorplan", name: "FactorPlan（ファクタープラン）", url: "https://factorplan.net/", logo: "/article/logos/factorplan.png", screenshot: "/article/official/official-factorplan.png" },
+  { id: "pmg", name: "PMG", url: "https://pmg-factoring.net/", logo: "/article/logos/pmg.svg", screenshot: "/article/official/official-pmg.png" },
+  { id: "msfj", name: "MSFJ", url: "https://msfj.co.jp/", logo: "/article/logos/msfj.jpg", screenshot: "/article/official/official-msfj.png" },
+  { id: "japanmanagement", name: "ジャパンマネジメント", url: "https://www.japan-management.com/", logo: "/article/logos/japanmanagement.webp", screenshot: "/article/official/official-japanmanagement.png" },
+  { id: "shikinpro", name: "資金調達プロ", url: "https://shikin-pro.com/", logo: "/article/logos/shikinpro.png", screenshot: "/article/official/official-shikinpro.png" },
+] as const;
+
+const officialById = new Map(officialSources.map((source) => [source.id, source]));
+const officialByName = new Map(officialSources.map((source) => [source.name, source]));
+officialByName.set("Easy factor", officialById.get("easyfactor")!);
+officialByName.set("FactorPlan", officialById.get("factorplan")!);
 
 // 目次。10項目め以降は「もっと見る」で折りたたむ。
 const toc = [
@@ -298,6 +323,28 @@ const jsonLd = {
       <span>最終更新 {UPDATED}</span><span>運送業 / 法人・個人事業主</span><span>公式・公的資料で確認</span>
     </p>
     <h1>運送業におすすめな<mark>ファクタリング会社15選</mark><br />選び方や利用するときの注意点も紹介</h1>
+
+    <div class="article-fv" aria-label="資金調達方法の見分け方">
+      <figure class="article-fv__visual">
+        <img src="/article/funding-route-hero-ai-v1.png" alt="トラック事業の資金調達で、融資と請求書の早期資金化を分けて考えるイメージ" width="1536" height="1024" fetchpriority="high" />
+        <figcaption>資金調達は、必要な金額・入金までの時間・売掛金の有無で見分けます。</figcaption>
+      </figure>
+      <div class="article-fv__routes">
+        <p class="article-fv__eyebrow">まずはこの2つを見比べる</p>
+        <a class="article-fv__route article-fv__route--loan" href="#actwill">
+          <span class="article-fv__route-icon" aria-hidden="true">①</span>
+          <span><b>まとまった資金を借りる</b><small>法人・300万円以上なら、融資条件を確認</small></span>
+          <i aria-hidden="true">›</i>
+        </a>
+        <a class="article-fv__route article-fv__route--factoring" href="#list">
+          <span class="article-fv__route-icon" aria-hidden="true">②</span>
+          <span><b>請求書を早く資金化する</b><small>売掛金があり、入金までの時間を優先する場合</small></span>
+          <i aria-hidden="true">›</i>
+        </a>
+        <p class="article-fv__note">※融資とファクタリングは仕組み・負担・適用条件が異なります。下の比較表で条件を確認してください。</p>
+      </div>
+    </div>
+
     <p class="article-head__lead">
       運送業では売掛金の回収までに60〜120日かかることも珍しくなく、燃料費や人件費の負担も重いことから、
       資金繰りで苦しむ経営者や個人事業主ドライバーが多くいます。
@@ -310,6 +357,7 @@ const jsonLd = {
       そこでこの記事では、運送業に強い資金調達先15社の比較・選び方を詳しく解説します。
       メリット・デメリットや申し込みの流れについても紹介するため、ぜひ参考にしてください。
     </p>
+
   </header>
 
   <div class="table-scroll" role="region" aria-label="運送業向けおすすめ3社の比較表" tabindex="0">
@@ -318,23 +366,22 @@ const jsonLd = {
         <tr><th scope="col">運送業向けおすすめ</th><th scope="col">特徴</th><th scope="col">公式サイト</th></tr>
       </thead>
       <tbody>
-        {top3.map(({ name, pr, points }) => (
+        {top3.map(({ name, pr, points }) => {
+          const source = officialByName.get(name)!;
+          return (
           <tr class:list={[pr && "is-key"]}>
-            <th scope="row">{name}{pr && <em>PR</em>}</th>
+            <th scope="row"><span class="company-brand"><img src={source.logo} alt={`${name}のロゴ`} loading="lazy" /><span>{name}{pr && <em>PR</em>}</span></span></th>
             <td>
               <ul class="scan-list">
                 {points.map((point) => (<li>{point}</li>))}
               </ul>
             </td>
             <td>
-              {pr ? (
-                <a href={A8} rel="nofollow sponsored noopener" target="_blank">公式サイト</a>
-              ) : (
-                <span class="no-link">各社公式で確認</span>
-              )}
+              <a href={source.url} rel={source.affiliate ? "nofollow sponsored noopener" : "noopener"} target="_blank">公式サイト</a>
             </td>
           </tr>
-        ))}
+          );
+        })}
       </tbody>
     </table>
   </div>
@@ -382,16 +429,24 @@ const jsonLd = {
             </tr>
           </thead>
           <tbody>
-            {matrix.map((row) => (
+            {matrix.map((row) => {
+              const source = officialByName.get(row.name)!;
+              return (
               <tr class:list={[row.pr && "is-key"]}>
-                <th scope="row">{row.name}{row.pr && <em>PR</em>}</th>
+                <th scope="row">
+                  <a class="company-brand" href={source.url} rel={source.affiliate ? "nofollow sponsored noopener" : "noopener"} target="_blank">
+                    <img src={source.logo} alt={`${row.name}のロゴ`} loading="lazy" />
+                    <span>{row.name}{row.pr && <em>PR</em>}</span>
+                  </a>
+                </th>
                 <td>{row.pr ? <strong>{row.fee}</strong> : row.fee}</td>
                 <td>{row.speed}</td>
                 <td>{row.amount}</td>
                 <td>{row.target}</td>
                 <td><strong>{row.mark}</strong></td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -405,6 +460,13 @@ const jsonLd = {
       <p>以下より、それぞれの特徴について詳しく解説します。</p>
 
       <h3 id="actwill"><svg aria-hidden="true"><use href="#i-truck" /></svg>アクト・ウィル<span class="rank-badge">PR</span></h3>
+
+      <figure class="official-preview">
+        <a href={officialById.get("actwill")!.url} rel="nofollow sponsored noopener" target="_blank">
+          <img src="/article/official/official-actwill.png" alt="アクト・ウィル公式サイトの表示" loading="lazy" width="1366" height="768" />
+        </a>
+        <figcaption><span>アクト・ウィル公式サイトの表示（{UPDATED}取得）</span><a href={officialById.get("actwill")!.url} rel="nofollow sponsored noopener" target="_blank">公式サイトへ</a></figcaption>
+      </figure>
 
       <div class="box box--point">
         <p class="box__title">アクト・ウィルの特徴</p>
@@ -504,9 +566,18 @@ const jsonLd = {
         </p>
       </div>
 
-      {companies.map(({ id, icon, name, points, body, specs }) => (
+      {companies.map(({ id, icon, name, points, body, specs }) => {
+        const source = officialById.get(id)!;
+        return (
         <>
           <h3 id={id}><svg aria-hidden="true"><use href={`#i-${icon}`} /></svg>{name}</h3>
+
+          <figure class="official-preview">
+            <a href={source.url} rel="noopener" target="_blank">
+              <img src={source.screenshot} alt={`${name}公式サイトの表示`} loading="lazy" width="1366" height="768" />
+            </a>
+            <figcaption><span>{name}公式サイトの表示（{UPDATED}取得）</span><a href={source.url} rel="noopener" target="_blank">公式サイトへ</a></figcaption>
+          </figure>
 
           <div class="box box--point">
             <p class="box__title">{name}の特徴</p>
@@ -526,11 +597,12 @@ const jsonLd = {
             </tbody>
           </table>
         </>
-      ))}
+        );
+      })}
 
       <p class="source">
         各社公式サイトの{UPDATED}時点の表示にもとづきます。本記事はアクト・ウィル以外の各社と提携しておらず、
-        リンクも設置していません。条件は各社公式サイトで直接ご確認ください。
+        比較表・各社紹介からは各社の公式サイトへ直接遷移します。条件は各社公式サイトで直接ご確認ください。
       </p>
     </section>
 

@@ -13,7 +13,7 @@ interface Props {
 const { title, description, updated } = Astro.props;
 
 // A8.net の計測付きリンク。actwill.co.jp への直リンクは成果が計測されないため使わない。
-const A8_LINK = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH";
+const A8_LINK = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY";
 ---
 
 <!doctype html>
@@ -52,7 +52,7 @@ const A8_LINK = "https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTZCH";
       </footer>
     </div>
 
-    <aside class="sticky-contact" aria-label="お問い合わせ">
+    <aside class="sticky-contact is-visible" aria-label="お問い合わせ">
       <a href={A8_LINK} rel="nofollow sponsored noopener" target="_blank">
         <strong>無料相談で条件を確認する</strong><b aria-hidden="true">›</b>
       </a>

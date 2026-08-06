@@ -63,6 +63,151 @@
   line-height: 1.85;
 }
 
+/* ==========================================================
+   FV：資金調達の分岐を一目で伝えるオリジナル図版
+   ========================================================== */
+
+.article-fv {
+  display: grid;
+  gap: var(--act-space-md);
+  margin-block-start: var(--act-space-lg);
+  padding: var(--act-space-sm);
+  border: 0.1875rem solid var(--act-ink);
+  border-radius: var(--act-radius-md);
+  background: var(--act-ink);
+  box-shadow: 0.35rem 0.35rem 0 var(--act-orange);
+}
+
+.article-fv__visual {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: calc(var(--act-radius-md) - 0.15rem);
+  background: #06131e;
+}
+
+.article-fv__visual img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+}
+
+.article-fv__visual figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  margin: 0;
+  padding: 1.1rem var(--act-space-sm) var(--act-space-sm);
+  background: linear-gradient(transparent, rgb(0 0 0 / 82%));
+  color: var(--act-paper);
+  font-size: var(--act-text-2xs);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.article-fv__routes {
+  display: grid;
+  align-content: center;
+  gap: var(--act-space-xs);
+}
+
+.article-fv__eyebrow {
+  margin: 0;
+  color: var(--act-amber);
+  font-family: var(--font-meta);
+  font-size: var(--act-text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.article-fv__route {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--act-space-xs);
+  min-block-size: 4.8rem;
+  padding: var(--act-space-xs);
+  border-radius: var(--act-radius-sm);
+  background: var(--act-paper);
+  color: var(--act-ink);
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.article-fv__route:hover {
+  color: var(--act-ink);
+  box-shadow: 0.22rem 0.22rem 0 var(--act-orange);
+  transform: translate(-0.08rem, -0.08rem);
+}
+
+.article-fv__route:focus-visible {
+  outline: 0.1875rem solid var(--act-amber);
+  outline-offset: 0.18rem;
+}
+
+.article-fv__route-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: 50%;
+  background: var(--act-ink);
+  color: var(--act-paper);
+  font-family: var(--font-meta);
+  font-size: var(--act-text-xs);
+  font-weight: 800;
+}
+
+.article-fv__route--factoring .article-fv__route-icon {
+  background: var(--act-orange-deep);
+}
+
+.article-fv__route b,
+.article-fv__route small {
+  display: block;
+}
+
+.article-fv__route b {
+  font-size: var(--act-text-sm);
+  line-height: 1.45;
+}
+
+.article-fv__route small {
+  margin-block-start: 0.1rem;
+  color: var(--act-muted);
+  font-size: var(--act-text-2xs);
+  line-height: 1.45;
+}
+
+.article-fv__route i {
+  color: var(--act-orange-deep);
+  font-size: 2rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.article-fv__note {
+  margin: 0;
+  color: color-mix(in srgb, var(--act-paper) 80%, transparent);
+  font-size: var(--act-text-2xs);
+  line-height: 1.6;
+}
+
+@media (min-width: 46rem) {
+  .article-fv {
+    grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+    align-items: stretch;
+    padding: var(--act-space-md);
+  }
+
+  .article-fv__visual img {
+    min-block-size: 18rem;
+  }
+}
+
 .article-head__target {
   margin-block-start: var(--act-space-lg);
   border: 0.1875rem solid var(--act-ink);
@@ -851,7 +996,7 @@
   position: sticky;
   inset-inline-start: 0;
   inline-size: auto;
-  min-inline-size: 9rem;
+  min-inline-size: 10.5rem;
   background: var(--act-paper-warm);
   font-size: var(--act-text-xs);
   font-weight: 800;
@@ -881,6 +1026,79 @@
 
 .kv-table--matrix td:last-child {
   min-inline-size: 14rem;
+}
+
+/* 比較表内の公式ロゴ。ロゴ自体も公式サイトへ直接遷移させる。 */
+.company-brand {
+  display: grid;
+  justify-items: start;
+  gap: 0.3rem;
+  color: var(--act-ink);
+  text-decoration: none;
+}
+
+.company-brand img {
+  display: block;
+  inline-size: min(8.8rem, 100%);
+  block-size: 2.35rem;
+  border-radius: 0.18rem;
+  background: #fff;
+  object-fit: contain;
+  object-position: left center;
+}
+
+a.company-brand:hover span:last-child {
+  color: var(--act-orange-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* 各社説明の直前に置く、公式サイトの表示キャプチャ。 */
+.official-preview {
+  margin: var(--act-space-md) 0 var(--act-space-sm);
+  overflow: hidden;
+  border: 0.0625rem solid var(--act-rule-dark);
+  border-radius: var(--act-radius-sm);
+  background: var(--act-paper);
+  box-shadow: 0.18rem 0.18rem 0 color-mix(in srgb, var(--act-ink) 12%, transparent);
+}
+
+.official-preview > a {
+  display: block;
+  background: #f7f8fa;
+}
+
+.official-preview > a:focus-visible {
+  outline: 0.1875rem solid var(--act-orange);
+  outline-offset: -0.1875rem;
+}
+
+.official-preview img {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.official-preview figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--act-space-xs);
+  padding: 0.5rem var(--act-space-sm);
+  border-block-start: 0.0625rem solid var(--act-rule);
+  color: var(--act-muted);
+  font-size: var(--act-text-2xs);
+  line-height: 1.5;
+}
+
+.official-preview figcaption a {
+  flex: none;
+  color: var(--act-orange-deep);
+  font-weight: 800;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.16em;
 }
 
 /* ==========================================================
@@ -999,10 +1217,15 @@
 
 .kv-table--top3 tbody th {
   inline-size: auto;
-  min-inline-size: 8rem;
+  min-inline-size: 10rem;
   font-size: var(--act-text-sm);
   font-weight: 800;
   vertical-align: middle;
+}
+
+.kv-table--top3 .company-brand img {
+  inline-size: min(8.2rem, 100%);
+  block-size: 2.6rem;
 }
 
 .kv-table--top3 th em {
@@ -1042,6 +1265,28 @@
 
 .kv-table--top3 .scan-list {
   margin: 0;
+}
+
+@media (max-width: 24rem) {
+  .article-fv {
+    padding: 0.55rem;
+    box-shadow: 0.22rem 0.22rem 0 var(--act-orange);
+  }
+
+  .article-fv__route {
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+
+  .article-fv__route-icon {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+  }
+
+  .official-preview figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 /* ==========================================================
