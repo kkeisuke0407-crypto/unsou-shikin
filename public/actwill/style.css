@@ -334,11 +334,11 @@ sup{font-size:.7em;vertical-align:super;}
 }
 .fit-box--yes ul li::before{
   background-size:17px 17px;
-  background-image:url("assets/icons/list-check-green.png?v=20260811f");
+  background-image:url("assets/icons/list-check-green.png?v=20260811g");
 }
 .fit-box--no ul li::before{
   background-size:17px 17px;
-  background-image:url("assets/icons/list-cross-gray.png?v=20260811f");
+  background-image:url("assets/icons/list-cross-gray.png?v=20260811g");
 }
 .fit-box--no ul li b{display:block;font-size:14.5px;color:var(--ink);}
 .fit-box--no ul li span{display:block;font-size:12px;color:var(--muted);line-height:1.6;}
@@ -462,7 +462,7 @@ sup{font-size:.7em;vertical-align:super;}
 .last-cta__list li::before{
   content:"";position:absolute;left:0;top:.3em;width:16px;height:16px;
   background:no-repeat center/16px 16px;
-  background-image:url("assets/icons/list-check-orange.png?v=20260811f");
+  background-image:url("assets/icons/list-check-orange.png?v=20260811g");
 }
 .last-cta__action{text-align:center;}
 .last-cta__action .btn{max-width:none;}
