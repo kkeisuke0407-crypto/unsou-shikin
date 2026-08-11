@@ -1,0 +1,598 @@
+@charset "UTF-8";
+/* ============================================================
+   運送資金ナビ｜運送業向け事業資金LP
+   style.css
+   ------------------------------------------------------------
+   構成
+   0. 変数・リセット・共通パーツ
+   1. ヘッダー
+   2. ファーストビュー
+   3. まずは3つ確認してください
+   4. 資金需要（6カード）
+   5. 資金調達方法の比較表
+   6. 商品紹介ダークバンド（アクト・ウィル／5つの特徴）
+   7. 向いています／向いていません
+   8. 他社で断られた場合でも仮審査は可能
+   9. 申込みから融資まで
+   10. 貸付条件／会社情報
+   11. FAQ
+   12. 最終CTA・フッター・固定CTA
+   13. レスポンシブ
+   ============================================================ */
+
+/* ============================================================
+   0. 変数・リセット・共通パーツ
+   ============================================================ */
+:root{
+  /* 配色 */
+  --dark:#0a3036;          /* ヘッダー・最濃 */
+  --dark-2:#0d444d;        /* ダークバンド */
+  --teal:#12626d;          /* アクセント（アイコン等） */
+  --ink:#17373d;           /* 見出し文字 */
+  --body:#42575c;          /* 本文 */
+  --muted:#6f8286;         /* 補足文字 */
+  --orange:#f07d1a;        /* CTA */
+  --orange-d:#d96a0b;
+  --gold:#ffd24a;          /* FVアクセント */
+  --green:#2e9e6b;
+  --bg-gray:#eef2f3;
+  --bg-cream:#f7f3e9;
+  --line:#dde5e6;
+  --line-2:#c9d5d7;
+
+  --container:1100px;
+  --radius:8px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  color:var(--body);
+  background:#fff;
+  font-size:15px;
+  line-height:1.75;
+  font-feature-settings:"palt";
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{margin:0;padding:0;list-style:none;}
+p{margin:0;}
+h1,h2,h3{margin:0;line-height:1.35;color:var(--ink);}
+table{border-collapse:collapse;width:100%;}
+sup{font-size:.7em;vertical-align:super;}
+
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:24px;}
+
+/* アイコン（生成AI PNG） */
+.ico{
+  width:34px;height:34px;flex:none;
+  object-fit:contain;
+}
+
+/* セクション共通 */
+.sec{padding:42px 0;}
+.sec--tight{padding:20px 0 36px;}
+.sec--white{background:#fff;}
+.sec--gray{background:var(--bg-gray);}
+.sec--cream{background:var(--bg-cream);}
+.sec--dark{background:linear-gradient(135deg,#0a343b 0%,#0f4e58 100%);}
+
+.sec-title{
+  font-size:27px;font-weight:900;text-align:center;letter-spacing:.02em;
+  margin-bottom:12px;
+}
+.sec-title em{font-style:normal;font-size:1.18em;color:var(--ink);}
+.sec-title--sm{font-size:24px;}
+.sec-lead{font-size:14.5px;color:var(--body);margin-bottom:20px;}
+.sec-lead.center,.center{text-align:center;}
+.micro{font-size:11.5px;color:var(--muted);line-height:1.7;}
+.micro.center{text-align:center;}
+
+/* CTAボタン */
+.btn{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:10px;
+  min-height:52px;padding:11px 52px 11px 30px;
+  border-radius:8px;
+  background:linear-gradient(180deg,#f79233 0%,#ef7c17 55%,#e87310 100%);
+  color:#fff;font-weight:700;font-size:17px;letter-spacing:.02em;
+  box-shadow:0 6px 16px rgba(0,0,0,.18);
+  transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+}
+.btn b{
+  position:absolute;right:24px;top:50%;transform:translateY(-52%);
+  font-size:24px;font-weight:400;line-height:1;
+}
+.btn:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.24);}
+.btn:active{transform:translateY(0);box-shadow:0 4px 10px rgba(0,0,0,.2);}
+.btn--lg{min-height:56px;font-size:18.5px;padding-inline:40px 60px;}
+.btn--xl{min-height:60px;font-size:21px;padding-inline:40px 64px;width:100%;max-width:690px;}
+.btn-wrap{text-align:center;margin:18px 0 8px;}
+
+/* ============================================================
+   1. ヘッダー
+   ============================================================ */
+.site-header{background:var(--dark);color:#fff;}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:52px;gap:16px;}
+.header-brand{display:flex;align-items:center;gap:10px;}
+.logo{font-size:19px;font-weight:900;letter-spacing:.04em;color:#fff;}
+.pr-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:28px;height:19px;padding:0 6px;
+  border:1px solid rgba(255,255,255,.55);border-radius:3px;
+  font-size:10.5px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.85);
+}
+.header-label{
+  padding:3px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;
+  font-size:11.5px;color:rgba(255,255,255,.9);
+}
+.header-nav{display:flex;gap:20px;font-size:12px;color:rgba(255,255,255,.85);}
+.header-nav a:hover{color:var(--gold);}
+
+/* ============================================================
+   2. ファーストビュー
+   ============================================================ */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(115% 85% at 74% 42%, rgba(32,150,168,.55) 0%, rgba(11,60,70,0) 62%),
+    linear-gradient(105deg,#07333b 0%,#0b4451 40%,#12626f 74%,#0c4653 100%);
+  color:#fff;
+}
+/* トラック写真（差し替え箇所：assets/hero-truck.png） */
+.hero-visual{
+  position:absolute;top:0;right:0;bottom:0;left:28%;
+  background:url("assets/hero-truck.png") no-repeat right center/cover;
+  /* 夕景写真をティール系に色変換（写真を差し替える場合は filter を外す） */
+  filter:hue-rotate(158deg) saturate(1.02) brightness(1.34) contrast(1);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 20%,#000 48%);
+  mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 20%,#000 48%);
+  opacity:1;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(5,38,45,.9) 0%,rgba(5,38,45,.45) 36%,rgba(5,38,45,0) 64%),
+             linear-gradient(to bottom,rgba(5,38,45,.2) 0%,rgba(5,38,45,0) 30%,rgba(5,38,45,.45) 100%);
+}
+.hero-inner{position:relative;z-index:2;padding:26px 24px 24px;}
+
+.hero-copy{max-width:640px;}
+.hero-kicker{
+  display:inline-block;margin-bottom:10px;
+  font-size:12.5px;letter-spacing:.06em;color:rgba(255,255,255,.9);
+}
+.hero-title{color:#fff;font-weight:900;letter-spacing:.01em;line-height:1.22;}
+.hero-title span{display:block;}
+.hero-title .accent{color:var(--gold);font-size:34px;text-shadow:0 2px 14px rgba(0,0,0,.45);}
+.hero-title .line2,.hero-title .line3{font-size:37px;text-shadow:0 2px 16px rgba(0,0,0,.5);}
+.hero-lead{margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.88);line-height:1.8;}
+.hero-lead strong{color:#fff;font-weight:700;}
+
+.hero-productlabel{
+  display:flex;align-items:center;gap:14px;margin-top:20px;
+  font-size:13px;color:rgba(255,255,255,.9);white-space:nowrap;
+}
+.hero-productlabel i{display:block;flex:1;height:1px;background:rgba(255,255,255,.35);}
+.hero-brand{
+  margin-top:2px;font-size:42px;font-weight:900;color:#fff;letter-spacing:.02em;
+  text-shadow:0 3px 18px rgba(0,0,0,.5);line-height:1.2;
+}
+
+/* 4つの訴求ポイント */
+.hero-specs{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  margin-top:20px;
+}
+.hero-specs li{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 13px;
+  background:rgba(6,40,47,.55);
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:10px;
+  backdrop-filter:blur(4px);
+}
+.hero-specs .ico{width:30px;height:30px;}
+.spec-txt{display:flex;flex-direction:column;line-height:1.3;}
+.spec-txt small{font-size:11.5px;color:rgba(255,255,255,.72);}
+.spec-txt strong{font-size:19px;font-weight:900;color:#fff;letter-spacing:.01em;}
+
+/* FV CTA */
+.hero-cta{margin-top:18px;text-align:center;}
+.hero-terms{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.86);}
+.hero-note{margin-top:4px;font-size:10.5px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* ============================================================
+   3. まずは3つ確認してください
+   ============================================================ */
+.check-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin:20px 0 18px;
+}
+.check-card{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:#fff;
+}
+.check-card .num{
+  display:flex;align-items:center;justify-content:center;
+  width:30px;height:30px;flex:none;
+  background:var(--dark);color:#fff;border-radius:4px;
+  font-size:13px;font-weight:700;letter-spacing:.02em;
+}
+.check-card .ico{width:32px;height:32px;}
+.check-card p{font-size:15px;font-weight:700;color:var(--ink);line-height:1.5;}
+
+/* ============================================================
+   4. 資金需要（6カード）
+   ============================================================ */
+.need-cards{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:11px;
+  margin-top:20px;
+}
+.need-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:16px 10px 14px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+}
+.need-card .ico{width:32px;height:32px;margin-bottom:9px;}
+.need-card .ttl{font-size:13px;font-weight:700;color:var(--ink);line-height:1.45;}
+.need-card .desc{margin-top:6px;font-size:10.5px;color:var(--muted);line-height:1.6;}
+
+/* ============================================================
+   5. 資金調達方法の比較表
+   ============================================================ */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.compare-table{
+  min-width:760px;background:#fff;
+  border:1px solid var(--line-2);
+  font-size:13px;
+}
+.compare-table th,.compare-table td{
+  border:1px solid var(--line-2);
+  padding:11px 10px;text-align:center;vertical-align:middle;line-height:1.6;
+}
+.compare-table thead th{
+  background:#eceff0;color:var(--ink);font-size:14.5px;font-weight:700;padding:10px;
+}
+.compare-table thead th.th-corner{width:104px;background:#e4e9ea;}
+.compare-table tbody th{
+  width:104px;background:#eceff0;color:var(--ink);font-size:13.5px;font-weight:700;
+}
+.compare-table td{color:var(--body);}
+/* 強調カラム（ビジネスローン） */
+.compare-table thead th.is-key{
+  background:var(--bg-cream);color:var(--ink);
+  border:2px solid var(--orange);border-bottom-color:var(--line-2);
+}
+.compare-table td.is-key{
+  background:var(--bg-cream);
+  border-left:2px solid var(--orange);border-right:2px solid var(--orange);
+}
+.compare-table tbody tr:last-child td.is-key{border-bottom:2px solid var(--orange);}
+.compare-table td.is-key strong{color:#d2650a;font-weight:700;}
+.compare-foot{
+  margin-top:18px;text-align:center;font-size:14.5px;font-weight:700;color:var(--ink);
+}
+
+/* ============================================================
+   6. 商品紹介ダークバンド
+   ============================================================ */
+.sec--dark{color:#fff;}
+.product-band{display:flex;flex-wrap:wrap;align-items:center;gap:28px;}
+.product-id{width:250px;flex:none;}
+.product-kicker{font-size:12.5px;color:rgba(255,255,255,.75);}
+.product-tag{
+  display:inline-block;margin-top:8px;padding:4px 12px;
+  background:var(--orange);border-radius:4px;
+  font-size:12px;font-weight:700;color:#fff;
+}
+.product-name{margin-top:6px;font-size:36px;font-weight:900;color:#fff;letter-spacing:.02em;line-height:1.2;}
+
+.point-list{
+  flex:1;min-width:520px;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:10px;
+  padding:16px 8px;
+}
+.point-list li{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:0 12px;
+}
+.point-list li+li{border-left:1px solid rgba(255,255,255,.16);}
+.point-list .ico{width:32px;height:32px;margin-bottom:10px;}
+.point-list .ttl{font-size:13px;font-weight:700;color:#fff;line-height:1.45;}
+.point-list .desc{margin-top:7px;font-size:10.5px;color:rgba(255,255,255,.58);line-height:1.6;}
+
+.product-cta{width:100%;text-align:center;margin-top:20px;}
+.product-cta .hero-note{margin-top:8px;}
+
+/* ============================================================
+   7. 向いています／向いていません
+   ============================================================ */
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.fit-box{border-radius:var(--radius);padding:18px 20px;border:1px solid var(--line);}
+.fit-box--yes{background:#f4faf6;border-color:#cfe6d8;}
+.fit-box--no{background:#f6f8f8;border-color:#dfe5e6;}
+.fit-head{
+  display:flex;align-items:center;gap:9px;
+  font-size:16px;font-weight:700;color:var(--ink);
+  padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid rgba(0,0,0,.08);
+}
+.fit-head .ico{width:22px;height:22px;}
+.fit-box ul li{position:relative;padding-left:28px;margin-bottom:8px;font-size:14px;line-height:1.6;color:var(--body);}
+.fit-box ul li:last-child{margin-bottom:0;}
+.fit-box ul li::before{
+  content:"";position:absolute;left:0;top:.34em;width:17px;height:17px;border-radius:50%;
+  background:no-repeat center/11px 11px;
+}
+.fit-box--yes ul li::before{
+  background-size:17px 17px;
+  background-image:url("assets/icons/list-check-green.png");
+}
+.fit-box--no ul li::before{
+  background-size:17px 17px;
+  background-image:url("assets/icons/list-cross-gray.png");
+}
+.fit-box--no ul li b{display:block;font-size:14.5px;color:var(--ink);}
+.fit-box--no ul li span{display:block;font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ============================================================
+   8. 他社で断られた場合でも仮審査は可能
+   ============================================================ */
+.reject-band{
+  display:flex;align-items:center;justify-content:space-between;gap:26px;
+  padding:16px 24px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 2px 10px rgba(10,48,54,.05);
+}
+.reject-txt{display:flex;align-items:center;gap:16px;}
+.reject-txt .ico{width:46px;height:46px;}
+.reject-txt .ttl{font-size:20px;font-weight:900;color:var(--ink);line-height:1.4;}
+.reject-txt .desc{margin-top:4px;font-size:12.5px;color:var(--muted);line-height:1.65;}
+.reject-band .btn{flex:none;font-size:17px;min-height:52px;}
+
+/* ============================================================
+   9. 申込みから融資まで
+   ============================================================ */
+.flow-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:34px;
+  margin:22px 0 20px;
+}
+.flow-step{
+  position:relative;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 12px 14px;text-align:center;
+}
+.flow-step .num{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--dark);color:#fff;font-size:12.5px;font-weight:700;
+}
+.flow-step .ico{width:36px;height:36px;margin:6px auto 10px;}
+.flow-step .ttl{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.45;}
+.flow-step .desc{margin-top:7px;font-size:11.5px;color:var(--muted);line-height:1.65;}
+.flow-step:not(:last-child)::after{
+  content:"";position:absolute;top:50%;right:-24px;transform:translateY(-50%);
+  border-left:11px solid var(--dark);
+  border-top:8px solid transparent;border-bottom:8px solid transparent;
+}
+.flow-foot{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;}
+.flow-foot__box{
+  padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  font-size:16px;font-weight:700;color:var(--ink);text-align:center;
+}
+.flow-foot__box span{display:block;margin-top:5px;font-size:11.5px;font-weight:400;color:var(--muted);line-height:1.65;}
+.flow-foot .btn{width:100%;}
+
+/* ============================================================
+   10. 貸付条件／会社情報
+   ============================================================ */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+.info-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:13px;}
+.info-lead{font-size:13px;color:var(--body);margin-bottom:12px;line-height:1.75;}
+.kv-table{font-size:12.5px;border:1px solid var(--line-2);}
+.kv-table th,.kv-table td{border:1px solid var(--line-2);padding:7px 11px;line-height:1.55;}
+.kv-table th{width:132px;background:#eceff0;color:var(--ink);font-weight:700;text-align:left;white-space:nowrap;}
+.kv-table td{background:#fff;color:var(--body);}
+.info-col .micro{margin-top:10px;}
+
+/* ============================================================
+   11. FAQ
+   ============================================================ */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-top:18px;}
+.faq-item{border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:#fff;overflow:hidden;}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:11px 15px;
+  background:none;border:0;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:700;color:var(--ink);text-align:left;line-height:1.5;
+}
+.faq-q i{
+  flex:none;width:11px;height:11px;margin-right:2px;
+  border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:rotate(45deg) translate(-2px,-2px);
+  transition:transform .22s ease;
+}
+.faq-item.is-open .faq-q i{transform:rotate(-135deg) translate(-2px,-2px);}
+.faq-a{display:none;padding:0 16px 15px;border-top:1px solid var(--line);}
+.faq-item.is-open .faq-a{display:block;}
+.faq-a p{padding-top:13px;font-size:13.5px;color:var(--body);line-height:1.8;}
+
+/* ============================================================
+   12. 最終CTA・フッター・固定CTA
+   ============================================================ */
+.last-cta{
+  position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(100deg,#062a30 0%,#0a3d47 55%,#0d5462 100%);
+  padding:34px 0 34px;
+}
+.last-cta__visual{
+  position:absolute;inset:0 0 0 28%;
+  background:url("assets/hero-truck.png") no-repeat center right/cover;
+  filter:hue-rotate(152deg) saturate(1.15) brightness(1.3) contrast(.98);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 25%,#000 60%);
+  mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 25%,#000 60%);
+  opacity:.9;
+}
+.last-cta::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(5,36,43,.92) 0%,rgba(5,36,43,.55) 46%,rgba(5,36,43,.1) 100%);
+}
+.last-cta__inner{position:relative;z-index:2;}
+.last-cta__title{
+  color:#fff;font-size:33px;font-weight:900;line-height:1.32;
+  text-shadow:0 2px 14px rgba(0,0,0,.45);
+}
+.last-cta__body{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:30px;align-items:center;margin-top:18px;
+}
+.last-cta__list li{
+  position:relative;padding-left:26px;margin-bottom:6px;
+  font-size:15.5px;font-weight:700;color:#fff;line-height:1.6;
+}
+.last-cta__list li::before{
+  content:"";position:absolute;left:0;top:.3em;width:16px;height:16px;
+  background:no-repeat center/16px 16px;
+  background-image:url("assets/icons/list-check-orange.png");
+}
+.last-cta__action{text-align:center;}
+.last-cta__action .btn{max-width:none;}
+.last-cta__notes{margin-top:10px;font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.7;}
+.last-cta__terms{margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.85);}
+
+.site-footer{background:#062329;color:rgba(255,255,255,.65);padding:22px 0 26px;font-size:11.5px;}
+.footer-logo{display:flex;align-items:center;gap:8px;color:#fff;font-size:16px;font-weight:900;margin-bottom:8px;}
+.footer-note{line-height:1.8;max-width:860px;}
+.footer-copy{margin-top:12px;font-size:11px;color:rgba(255,255,255,.45);}
+
+/* スマホ用固定CTA */
+.fixed-cta{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(6,35,41,.92);
+  backdrop-filter:blur(4px);
+}
+.fixed-cta .btn{width:100%;min-height:50px;font-size:16px;padding-inline:20px 44px;}
+.fixed-cta .btn b{right:18px;}
+
+/* ============================================================
+   13. レスポンシブ
+   ============================================================ */
+
+/* --- タブレット --- */
+@media (max-width:1040px){
+  .hero-title .accent{font-size:33px;}
+  .hero-title .line2,.hero-title .line3{font-size:35px;}
+  .hero-brand{font-size:40px;}
+  .spec-txt strong{font-size:17px;}
+  .need-cards{grid-template-columns:repeat(3,1fr);}
+  .product-band{flex-direction:column;align-items:stretch;}
+  .product-id{width:100%;text-align:center;}
+  .point-list{min-width:0;}
+  .flow-steps{gap:26px;}
+  .flow-step:not(:last-child)::after{right:-20px;}
+}
+
+/* --- スマートフォン --- */
+@media (max-width:768px){
+  body{font-size:14px;}
+  .sec{padding:38px 0;}
+  .sec-title{font-size:22px;}
+  .sec-title--sm{font-size:20px;}
+  .sec-lead{font-size:13.5px;margin-bottom:20px;}
+  .btn{font-size:16px;min-height:52px;padding:12px 44px 12px 20px;}
+  .btn b{right:18px;font-size:20px;}
+  .btn--lg,.btn--xl{font-size:17px;min-height:56px;padding-inline:20px 44px;}
+
+  /* ヘッダー */
+  .header-inner{height:auto;padding-block:9px;flex-wrap:wrap;gap:8px;}
+  .logo{font-size:16px;}
+  .header-label{font-size:10.5px;padding:2px 9px;}
+  .header-nav{display:none;}
+
+  /* FV */
+  .hero-inner{padding:24px 20px 26px;}
+  .hero-visual{left:0;opacity:.42;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 30%,#000 60%);
+    mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 30%,#000 60%);}
+  .hero::after{background:linear-gradient(180deg,rgba(4,26,30,.8) 0%,rgba(4,26,30,.45) 45%,rgba(4,26,30,.85) 100%);}
+  .hero-title .accent{font-size:25px;}
+  .hero-title .line2,.hero-title .line3{font-size:26px;}
+  .hero-lead{font-size:13px;}
+  .hero-lead br{display:none;}
+  .hero-brand{font-size:32px;}
+  .hero-specs{grid-template-columns:1fr 1fr;gap:8px;margin-top:20px;}
+  .hero-specs li{padding:9px 10px;gap:8px;}
+  .hero-specs .ico{width:24px;height:24px;}
+  .spec-txt small{font-size:10px;}
+  .spec-txt strong{font-size:14.5px;}
+
+  /* 3つ確認 */
+  .check-cards{grid-template-columns:1fr;gap:10px;}
+  .check-card{padding:14px;}
+  .check-card p{font-size:14px;}
+  .check-card p br{display:none;}
+
+  /* 資金需要 */
+  .need-cards{grid-template-columns:1fr 1fr;gap:10px;}
+  .need-card .ttl br{display:none;}
+
+  /* 比較表 */
+  .compare-table{min-width:660px;font-size:12px;}
+  .compare-foot{font-size:13px;text-align:left;}
+
+  /* ダークバンド */
+  .point-list{grid-template-columns:1fr 1fr;gap:16px 0;padding:16px 4px;}
+  .point-list li{padding:0 10px;}
+  .point-list li+li{border-left:1px solid rgba(255,255,255,.16);}
+  .point-list li:nth-child(odd){border-left:0;}
+  .point-list li:nth-child(5){border-left:0;}
+  .product-name{font-size:30px;}
+
+  /* 向き不向き */
+  .fit-grid{grid-template-columns:1fr;gap:14px;}
+  .fit-box{padding:18px;}
+
+  /* 断られた場合 */
+  .reject-band{flex-direction:column;align-items:stretch;text-align:left;padding:18px;}
+  .reject-txt .ttl{font-size:17px;}
+  .reject-band .btn{width:100%;}
+
+  /* フロー */
+  .flow-steps{grid-template-columns:1fr 1fr;gap:26px 14px;}
+  .flow-step:not(:last-child)::after{display:none;}
+  .flow-step:nth-child(odd)::after{
+    display:block;content:"";right:-12px;
+    border-left:8px solid var(--dark);border-top:6px solid transparent;border-bottom:6px solid transparent;
+  }
+  .flow-foot{grid-template-columns:1fr;}
+
+  /* 条件・会社情報 */
+  .info-grid{grid-template-columns:1fr;gap:26px;}
+  .kv-table th{width:104px;font-size:12px;white-space:normal;}
+  .kv-table td{font-size:12.5px;}
+
+  /* FAQ */
+  .faq-grid{grid-template-columns:1fr;}
+
+  /* 最終CTA */
+  .last-cta{padding:32px 0 34px;}
+  .last-cta__title{font-size:23px;}
+  .last-cta__body{grid-template-columns:1fr;gap:18px;}
+  .last-cta__list li{font-size:14px;}
+  .last-cta__visual{left:0;opacity:.35;}
+
+  /* 固定CTA */
+  .fixed-cta{display:block;}
+  body{padding-bottom:74px;}
+}
