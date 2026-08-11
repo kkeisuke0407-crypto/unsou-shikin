@@ -2,6 +2,7 @@
    運送資金ナビ｜LP用スクリプト（必要最小限）
    1. FAQアコーディオン
    2. スマホ固定CTAの表示制御（FV内では隠す）
+   3. アフィリエイトリンクのクリック計測（GA4 / Clarity）
    ============================================================ */
 (function () {
   'use strict';
@@ -38,4 +39,31 @@
     io.observe(hero);
     fixedCta.style.transition = 'opacity .25s ease';
   }
+
+  /* --- 3. アフィリエイトリンクのクリック計測 --------------- */
+  /* CTA（data-cta付きのリンク）が押されたら affiliate_click を送信する。
+     GA4側でこのイベントを「キーイベント」に指定するとCVとして集計できる。
+     cta_position でどのCTAが押されたかを分解できる。 */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest ? e.target.closest('a[data-cta]') : null;
+    if (!link) return;
+
+    var position = link.getAttribute('data-cta') || 'unknown';
+    var label = (link.textContent || '').replace(/[›\s]+/g, ' ').trim();
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'affiliate_click', {
+        cta_position: position,
+        cta_label: label,
+        link_url: link.href,
+        advertiser: 'actwill'
+      });
+    }
+
+    // Clarity側にも記録し、セッション録画をCTA別に絞り込めるようにする
+    if (typeof window.clarity === 'function') {
+      window.clarity('event', 'affiliate_click');
+      window.clarity('set', 'cta_position', position);
+    }
+  }, true);
 })();

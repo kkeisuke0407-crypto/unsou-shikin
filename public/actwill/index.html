@@ -11,6 +11,13 @@
      計測タグ（Google Analytics 4 / Microsoft Clarity）
      GA4 測定ID  : G-6Z0M0M6FH2
      Clarity ID  : y0nvgy9igv
+
+     アフィリエイトリンク（A8.net／アクト・ウィル）
+     ページ内のCTA 7箇所すべてに同じURLを設定している。
+     差し替えるときは a8mat= の値を7箇所とも置換すること。
+     各CTAの data-cta 属性が計測用の位置ラベル
+     （fv / check / point / rejected / flow / last / fixed）。
+     クリック時に script.js から affiliate_click イベントを送信する。
      ============================================================ -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Z0M0M6FH2"></script>
@@ -34,7 +41,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<!-- ?v= はキャッシュ対策。CSS/JSを更新したら日付を上げること -->
+<link rel="stylesheet" href="style.css?v=20260811b">
 </head>
 <body>
 
@@ -104,7 +112,7 @@
 
     <!-- メインCTA -->
     <div class="hero-cta">
-      <a class="btn btn--primary btn--xl" href="#cta-last">まずは仮査定で条件を確認する<b aria-hidden="true">›</b></a>
+      <a class="btn btn--primary btn--xl" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="fv">まずは仮査定で条件を確認する<b aria-hidden="true">›</b></a>
       <p class="hero-terms">法人限定｜原則、第三者保証人・不動産担保不要<sup>※</sup></p>
       <p class="hero-note">※法人代表者の連帯保証が必要です。審査内容・融資商品によって担保が必要になる場合があります。</p>
       <p class="hero-note">※審査があります。即日融資を保証するものではありません。</p>
@@ -141,7 +149,7 @@
     <p class="sec-lead center">3つとも「はい」なら、アクト・ウィルの運送事業者向けビジネスローンを検討できます。</p>
 
     <p class="btn-wrap">
-      <a class="btn btn--primary" href="#cta-last">自社が対象になるか仮査定で確認する<b aria-hidden="true">›</b></a>
+      <a class="btn btn--primary" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="check">自社が対象になるか仮査定で確認する<b aria-hidden="true">›</b></a>
     </p>
     <p class="micro center">公式の貸付条件では融資対象は法人、融資金額は300万円〜1億円です。</p>
   </div>
@@ -276,7 +284,7 @@
     </ul>
 
     <div class="product-cta">
-      <a class="btn btn--primary btn--lg" href="#cta-last">最短60分の仮査定へ<b aria-hidden="true">›</b></a>
+      <a class="btn btn--primary btn--lg" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="point">最短60分の仮査定へ<b aria-hidden="true">›</b></a>
       <p class="hero-note">※審査があります。即日融資を保証するものではありません。</p>
     </div>
 
@@ -328,7 +336,7 @@
           <p class="desc">もちろん、他社で断られていても必ず融資を受けられるという意味ではありません。会社ごとに審査があります。</p>
         </div>
       </div>
-      <a class="btn btn--primary" href="#cta-last">まず仮査定を申し込む<b aria-hidden="true">›</b></a>
+      <a class="btn btn--primary" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="rejected">まず仮査定を申し込む<b aria-hidden="true">›</b></a>
     </div>
   </div>
 </section>
@@ -369,7 +377,7 @@
 
     <div class="flow-foot">
       <p class="flow-foot__box">最初の申込み＝融資契約ではありません<span>申込み → 仮査定 → 審査結果 → 必要書類 → 契約。まずは「自社が利用できそうか」「どのような条件になるか」を確認してから判断できます。</span></p>
-      <a class="btn btn--primary" href="#cta-last">仮査定で条件を確認する<b aria-hidden="true">›</b></a>
+      <a class="btn btn--primary" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="flow">仮査定で条件を確認する<b aria-hidden="true">›</b></a>
     </div>
   </div>
 </section>
@@ -479,7 +487,7 @@
       </ul>
 
       <div class="last-cta__action">
-        <a class="btn btn--primary btn--xl" href="#">仮査定で条件を確認する<b aria-hidden="true">›</b></a>
+        <a class="btn btn--primary btn--xl" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="last">仮査定で条件を確認する<b aria-hidden="true">›</b></a>
         <p class="last-cta__notes">
           ※審査があります。※即日融資を保証するものではありません。<br>
           ※融資条件は審査結果によって異なります。<br>
@@ -507,9 +515,9 @@
 
 <!-- スマホ用固定CTA -->
 <div class="fixed-cta">
-  <a class="btn btn--primary" href="#cta-last">無料で仮査定を申し込む<b aria-hidden="true">›</b></a>
+  <a class="btn btn--primary" href="https://px.a8.net/svt/ejp?a8mat=4B9YLD+3SXUJM+5KPA+NTJWY" rel="nofollow sponsored noopener" target="_blank" data-cta="fixed">無料で仮査定を申し込む<b aria-hidden="true">›</b></a>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=20260811b"></script>
 </body>
 </html>
