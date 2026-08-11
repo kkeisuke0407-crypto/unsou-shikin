@@ -14,14 +14,14 @@
 
 ## 取込み順
 
-1. `01_GAE_CREATE_CAMPAIGN_UTF8.csv`
-2. `02_GAE_ADD_LOCATION_UTF8.csv`
-3. `03_GAE_ADD_ADGROUPS_UTF8.csv`
-4. `04_GAE_ADD_KEYWORDS_UTF8.csv`
-5. `05_GAE_ADD_RSA_UTF8.csv`
-6. `06_GAE_ADD_CAMPAIGN_NEGATIVES_UTF8.csv`
+1. `01_GAE_CREATE_CAMPAIGN_UTF16.csv`
+2. `02_GAE_ADD_LOCATION_UTF16.csv`
+3. `03_GAE_ADD_ADGROUPS_UTF16.csv`
+4. `04_GAE_ADD_KEYWORDS_UTF16.csv`
+5. `05_GAE_ADD_RSA_UTF16.csv`
+6. `06_GAE_ADD_CAMPAIGN_NEGATIVES_UTF16.csv`
 
-Google Ads Editorで各CSVを順にインポートしてください。プレビューでは、新規キャンペーンが **`共通探索CP` の1件のみ**作成されること、除外KWが19件であることを確認してから投稿します。
+Google Ads Editorで各CSVを順にインポートしてください。すべてUTF-16LE（BOM付き）なので、Windows環境でも日本語が文字化けしません。プレビューでは、新規キャンペーンが **`共通探索CP` の1件のみ**作成されること、除外KWが19件であることを確認してから投稿します。
 
 ## 除外KWのマッチタイプ
 
@@ -29,4 +29,3 @@ Google Ads Editorで各CSVを順にインポートしてください。プレビ
 - フレーズ一致: 法人対象外・情報収集・別ニーズ・別商品の15語
 
 サイトリンクはリンク先URLが計画表にないため、今回の取込みには含めていません。
-
