@@ -31,6 +31,9 @@ var CONFIG = {
   TARGET_MCV_TO_FINAL_RATE: 0,
 
   // 自動「候補」への掲載基準。自動で停止・除外・入札変更はしない。
+  MIN_DELIVERY_DAYS: 3,             // 3日未満は配信量で判定しない。
+  MIN_DELIVERY_IMPRESSIONS: 30,     // 3日後に30表示未満なら低露出として扱う。
+  MIN_VALIDATION_IMPRESSIONS: 100,  // CTR・検索語句・CPC判断の最低表示量。
   REVIEW_CLICKS: 10,
   REVIEW_COST_YEN: 700,
   PROMOTE_MCV: 1
@@ -88,7 +91,7 @@ function ensureSheets_(ss) {
 
   var setting = ensureSheet_(ss, TABS.setting, ['項目', '値', '補足']);
   if (setting.getLastRow() === 1) {
-    setting.getRange(2, 1, 11, 3).setValues([
+    setting.getRange(2, 1, 14, 3).setValues([
       ['対象キャンペーン', CONFIG.CAMPAIGN_NAME, 'Google広告上の名前と完全一致'],
       ['再取得日数', CONFIG.LOOKBACK_DAYS, '遅延反映のMCVを拾うため、前日・前々日を再取得'],
       ['分析対象日数', CONFIG.ANALYSIS_WINDOW_DAYS, '0なら全期間'],
@@ -99,9 +102,23 @@ function ensureSheets_(ss) {
       ['テスト枠', CONFIG.TEST_BUDGET_YEN, '初期テスト枠'],
       ['成果確定目安（日）', CONFIG.FINAL_CONVERSION_LAG_DAYS, '最終CVだけで早期停止しない'],
       ['MCV→最終CV率', CONFIG.TARGET_MCV_TO_FINAL_RATE, '未計測。実績がたまってから入力'],
+      ['最低計測日数', CONFIG.MIN_DELIVERY_DAYS, '3日未満は配信量を判定しない'],
+      ['最低表示数（低露出）', CONFIG.MIN_DELIVERY_IMPRESSIONS, '3日後に未満なら検証不可'],
+      ['最低表示数（検証可能）', CONFIG.MIN_VALIDATION_IMPRESSIONS, 'CTR・検索語句・CPC判断の最低量'],
       ['管理上の注意', '候補の自動反映なし', '除外・停止・CPC変更はプレビュー確認後に手動で実施']
     ]);
   }
+  ensureSettingRows_(setting, [
+    ['最低計測日数', CONFIG.MIN_DELIVERY_DAYS, '3日未満は配信量を判定しない'],
+    ['最低表示数（低露出）', CONFIG.MIN_DELIVERY_IMPRESSIONS, '3日後に未満なら検証不可'],
+    ['最低表示数（検証可能）', CONFIG.MIN_VALIDATION_IMPRESSIONS, 'CTR・検索語句・CPC判断の最低量']
+  ]);
+}
+
+function ensureSettingRows_(sh, additions) {
+  var existing = sh.getLastRow() > 1 ? sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().map(function(r) { return String(r[0]); }) : [];
+  var rows = additions.filter(function(r) { return existing.indexOf(r[0]) === -1; });
+  if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, 3).setValues(rows);
 }
 
 function ensureSheet_(ss, name, header) {
@@ -127,6 +144,9 @@ function loadSettings_(ss) {
   if (values['確定率'] !== undefined && values['確定率'] !== '') CONFIG.APPROVAL_RATE = Number(values['確定率']);
   if (values['成果確定目安（日）'] !== undefined && values['成果確定目安（日）'] !== '') CONFIG.FINAL_CONVERSION_LAG_DAYS = Number(values['成果確定目安（日）']);
   if (values['MCV→最終CV率'] !== undefined && values['MCV→最終CV率'] !== '') CONFIG.TARGET_MCV_TO_FINAL_RATE = Number(values['MCV→最終CV率']);
+  if (values['最低計測日数'] !== undefined && values['最低計測日数'] !== '') CONFIG.MIN_DELIVERY_DAYS = Number(values['最低計測日数']);
+  if (values['最低表示数（低露出）'] !== undefined && values['最低表示数（低露出）'] !== '') CONFIG.MIN_DELIVERY_IMPRESSIONS = Number(values['最低表示数（低露出）']);
+  if (values['最低表示数（検証可能）'] !== undefined && values['最低表示数（検証可能）'] !== '') CONFIG.MIN_VALIDATION_IMPRESSIONS = Number(values['最低表示数（検証可能）']);
 }
 
 function pullCampaignDaily_(ss, start, end) {
@@ -288,28 +308,60 @@ function writeKeywordAnalysis_(sh, rows) {
   var map = {};
   rows.forEach(function(r) {
     var key = [r[1], r[2], r[3], r[4]].join('|');
-    if (!map[key]) map[key] = { campaign: r[1], ag: r[2], kw: r[3], match: r[4], bid: r[5], imp: 0, clicks: 0, cost: 0, mcv: 0 };
+    if (!map[key]) map[key] = { campaign: r[1], ag: r[2], kw: r[3], match: r[4], bid: r[5], imp: 0, clicks: 0, cost: 0, mcv: 0, days: {} };
     map[key].bid = r[5]; map[key].imp += n_(r[6]); map[key].clicks += n_(r[7]); map[key].cost += n_(r[8]); map[key].mcv += n_(r[9]);
+    map[key].days[dateKey_(r[0])] = true;
   });
-  var lines = [['キャンペーン', '広告グループ', 'キーワード', 'マッチ', '現入札CPC', '表示', 'クリック', '広告費', 'MCV', '実CPC', 'CPMCV', '自動候補', '手動判断', '対応メモ']];
+  var lines = [['キャンペーン', '広告グループ', 'キーワード', 'マッチ', '現入札CPC', '計測日数', '表示', '表示/日', '検証状態', 'クリック', '広告費', 'MCV', '実CPC', 'CPMCV', '自動候補', '手動判断', '対応メモ']];
   Object.keys(map).forEach(function(key) {
     var v = map[key];
+    var days = Object.keys(v.days).length;
+    var impPerDay = days ? Math.round(v.imp / days) : 0;
     var cpc = v.clicks ? Math.round(v.cost / v.clicks) : 0;
     var cpmcv = v.mcv ? Math.round(v.cost / v.mcv) : 0;
+    var validation = '初期計測中';
     var action = '継続観察';
-    if (v.mcv >= CONFIG.PROMOTE_MCV) action = '継続・検索語句を抽出';
-    else if (v.clicks >= CONFIG.REVIEW_CLICKS || v.cost >= CONFIG.REVIEW_COST_YEN) action = '検索語句精査';
-    else if (v.imp === 0) action = '未配信確認（状態・地域・CPC）';
-    lines.push([v.campaign, v.ag, v.kw, v.match, v.bid, v.imp, v.clicks, v.cost, v.mcv, cpc, cpmcv, action, '', '']);
+    if (days >= CONFIG.MIN_DELIVERY_DAYS && v.imp === 0) {
+      validation = '未配信';
+      action = '入札・検索量を確認（検証不可）';
+    } else if (days >= CONFIG.MIN_DELIVERY_DAYS && v.imp < CONFIG.MIN_DELIVERY_IMPRESSIONS) {
+      validation = '低露出';
+      action = '表示量不足（検証不可）';
+    } else if (days >= CONFIG.MIN_DELIVERY_DAYS && v.imp < CONFIG.MIN_VALIDATION_IMPRESSIONS) {
+      validation = '蓄積中';
+      action = '100表示まで判断保留';
+    } else if (v.imp >= CONFIG.MIN_VALIDATION_IMPRESSIONS) {
+      validation = '検証可能';
+      if (v.mcv >= CONFIG.PROMOTE_MCV) action = '継続・検索語句を抽出';
+      else if (v.clicks >= CONFIG.REVIEW_CLICKS || v.cost >= CONFIG.REVIEW_COST_YEN) action = '検索語句精査';
+    }
+    lines.push([v.campaign, v.ag, v.kw, v.match, v.bid, days, v.imp, impPerDay, validation, v.clicks, v.cost, v.mcv, cpc, cpmcv, action, '', '']);
   });
-  lines = [lines[0]].concat(lines.slice(1).sort(function(a, b) { return b[7] - a[7]; }));
+  lines = [lines[0]].concat(lines.slice(1).sort(function(a, b) { return b[10] - a[10]; }));
   writeSheet_(sh, lines, 1, [1]);
   sh.getRange(2, 5, Math.max(1, lines.length - 1), 1).setNumberFormat('¥#,##0');
-  sh.getRange(2, 8, Math.max(1, lines.length - 1), 3).setNumberFormat('¥#,##0');
+  sh.getRange(2, 11, Math.max(1, lines.length - 1), 1).setNumberFormat('¥#,##0');
+  sh.getRange(2, 13, Math.max(1, lines.length - 1), 2).setNumberFormat('¥#,##0');
 }
 
 function writeActions_(sh, terms, keywords, asp) {
   var lines = [['優先度', '対象', '理由', '自動提案', '手動で行うこと']];
+  var kwMap = {};
+  keywords.forEach(function(r) {
+    var key = [r[2], r[3], r[4]].join('|');
+    if (!kwMap[key]) kwMap[key] = { ag: r[2], kw: r[3], match: r[4], imp: 0, days: {} };
+    kwMap[key].imp += n_(r[6]);
+    kwMap[key].days[dateKey_(r[0])] = true;
+  });
+  Object.keys(kwMap).forEach(function(key) {
+    var v = kwMap[key];
+    var days = Object.keys(v.days).length;
+    if (days >= CONFIG.MIN_DELIVERY_DAYS && v.imp === 0) {
+      lines.push(['高', v.kw, days + '日間・表示0', '配信量の不足', '推定1ページ目単価と現CPCを比較し、上げるか低検索量KWとして残すか判断。']);
+    } else if (days >= CONFIG.MIN_DELIVERY_DAYS && v.imp < CONFIG.MIN_DELIVERY_IMPRESSIONS) {
+      lines.push(['中', v.kw, days + '日間で' + v.imp + '表示', '低露出で検証不可', 'CPC・検索量を確認。低CPCのまま残すならCV評価の対象外にする。']);
+    }
+  });
   var termMap = {};
   terms.forEach(function(r) {
     var term = r[3];
