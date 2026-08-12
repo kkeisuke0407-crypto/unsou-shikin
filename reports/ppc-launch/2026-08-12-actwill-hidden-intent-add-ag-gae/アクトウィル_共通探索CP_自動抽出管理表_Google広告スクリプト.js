@@ -80,6 +80,10 @@ function ensureSheets_(ss) {
   ensureSheet_(ss, TABS.campDaily, ['日付', 'キャンペーン', 'クリック', '費用', '表示', 'MCV']);
   ensureSheet_(ss, TABS.termDaily, ['日付', 'キャンペーン', '広告グループ', '検索語句', '配信KW', '配信KWマッチ', 'クリック', '費用', 'MCV']);
   ensureSheet_(ss, TABS.kwDaily, ['日付', 'キャンペーン', '広告グループ', 'キーワード', 'マッチ', '入札CPC', '表示', 'クリック', '費用', 'MCV']);
+  ensureSheet_(ss, TABS.summary, ['集計項目', '値', '集計項目', '値']);
+  ensureSheet_(ss, TABS.terms, ['キャンペーン', '広告グループ', '検索語句', '配信KW', 'マッチ', 'クリック', '広告費', 'MCV', '実CPC', '自動候補', '手動判定', '対応メモ']);
+  ensureSheet_(ss, TABS.kw, ['キャンペーン', '広告グループ', 'キーワード', 'マッチ', '現入札CPC', '表示', 'クリック', '広告費', 'MCV', '実CPC', 'CPMCV', '自動候補', '手動判断', '対応メモ']);
+  ensureSheet_(ss, TABS.action, ['優先度', '対象', '理由', '自動提案', '手動で行うこと']);
   ensureSheet_(ss, TABS.asp, ['日付', 'キャンペーン', '公式遷移（MCV）', '仮査定完了', '承認成果', '確定報酬', 'メモ']);
 
   var setting = ensureSheet_(ss, TABS.setting, ['項目', '値', '補足']);
